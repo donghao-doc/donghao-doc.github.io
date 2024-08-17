@@ -28,3 +28,33 @@
   --ifm-color-primary-lightest: #4fddbf;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
+
+/* 行内代码颜色 */
+code {
+  color: #c7254e;
+  background-color: #f6f6f6;
+  border-radius: 3px;
+  padding: 2px 4px;
+}
+
+/* 滚动条 */
+::-webkit-scrollbar {
+  width: 7px;
+  background-color: #fff;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: #C0C0C0;
+}
+.thin-scrollbar { scrollbar-width: auto; }
+
+/* 给图片添加阴影 */
+img {
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.15);
+}
+
+/* 给文档中的链接添加下划线 */
+.theme-doc-markdown a {
+  text-decoration: none;
+  border-bottom: 1px solid;
+}
