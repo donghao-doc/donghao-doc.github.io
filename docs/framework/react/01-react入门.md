@@ -1,3 +1,7 @@
+---
+sidebar_position: 1
+---
+
 # React 入门
 
 ## React 简介
@@ -12,41 +16,41 @@ React 是一个用于构建用户界面的 JavaScript 库。
 ```html
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello React</title>
-    
-    <!-- 1. 引入 react 核心库 -->
-    <script src="https://unpkg.com/react/umd/react.development.js"></script>
-    <!-- 2. 引入 react-dom，用于支持 react 操作 DOM -->
-    <script src="https://unpkg.com/react-dom/umd/react-dom.development.js"></script>
-    <!-- 3. 引入 babel，用于将 jsx 转为 js -->
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    
-  </head>
-  <body>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hello React</title>
 
-	<!-- 4. React 渲染的容器（根元素） -->
-    <div id="app"></div>
+  <!-- 1. 引入 react 核心库 -->
+  <script src="https://unpkg.com/react/umd/react.development.js"></script>
+  <!-- 2. 引入 react-dom，用于支持 react 操作 DOM -->
+  <script src="https://unpkg.com/react-dom/umd/react-dom.development.js"></script>
+  <!-- 3. 引入 babel，用于将 jsx 转为 js -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
-	<!-- 5. type="text/babel" -->
-    <script type="text/babel">
-      // 查看相关变量
-      console.log('window.React:', window.React)
-      console.log('window.React.createElement:', window.React.createElement)
-      console.log('window.ReactDOM:', window.ReactDOM)
-      console.log('window.ReactDOM.render:', window.ReactDOM.render)
-      
-      // 6. 创建虚拟 DOM
-      //    这里的 h1 标签不要用引号引起来，因为 React 中写的是 JSX，这里的 h1 不是字符串，而是虚拟 DOM
-      const VDOM = <h1>Hello React</h1>
-      // 7. 渲染虚拟 DOM 到页面
-      ReactDOM.render(VDOM, document.getElementById('app'))
-    </script>
+</head>
+<body>
 
-  </body>
+  <!-- 4. React 渲染的容器（根元素） -->
+  <div id="app"></div>
+  
+  <!-- 5. type="text/babel" -->
+  <script type="text/babel">
+    // 查看相关变量
+    console.log('window.React:', window.React)
+    console.log('window.React.createElement:', window.React.createElement)
+    console.log('window.ReactDOM:', window.ReactDOM)
+    console.log('window.ReactDOM.render:', window.ReactDOM.render)
+  
+    // 6. 创建虚拟 DOM
+    //    这里的 h1 标签不要用引号引起来，因为 React 中写的是 JSX，这里的 h1 不是字符串，而是虚拟 DOM
+    const VDOM = <h1>Hello React</h1>
+    // 7. 渲染虚拟 DOM 到页面
+    ReactDOM.render(VDOM, document.getElementById('app'))
+  </script>
+
+</body>
 </html>
 ```
 
@@ -84,8 +88,9 @@ ReactDOM.render(VDOM3, document.getElementById("app"))
 
 ```html
 <script src="https://unpkg.com/react/umd/react.development.js"></script>
+
 <!-- 这里不用写 type="text/babel"，因为这里是用 JS 的方式创建虚拟 DOM，而不是 JSX 的方式，所以不需要 Babel -->
-<script type="text/javascript">
+<script>
   // 语法：React.createElement(标签名，标签属性，标签内容)
   const VDOM = React.createElement('h1', { id: 'title' }, React.createElement('span', {}, 'Hello React'))
 </script>
@@ -111,7 +116,9 @@ JSX 的写法最终会被 Babel 编译成上面 JS 的写法。
 <script src="https://unpkg.com/react-dom/umd/react-dom.development.js"></script>
 
 <style>
-  .title { color: red; }
+  .title {
+    color: red;
+  }
 </style>
 
 <div id="root"></div>
@@ -119,12 +126,12 @@ JSX 的写法最终会被 Babel 编译成上面 JS 的写法。
 <script>
   /**
    * 参数：
-   * 	1. 元素名（标签必须小写，否则会被当做组件）、组件名
+   *    1. 元素名（标签必须小写，否则会被当做组件）、组件名
    *    2. 元素的属性
-   *    	- class 属性要用 className 来设置，因为 class 是 js 中的一个关键字
+   *        - class 属性要用 className 来设置，因为 class 是 js 中的一个关键字
    *        - 在设置事件时，属性名要用驼峰命名法
    *    3. 元素的子元素（内容）
-   *    	- 从第三个参数开始往后，都是子元素
+   *        - 从第三个参数开始往后，都是子元素
    * */
 
   console.log('window.React:', window.React)
@@ -148,7 +155,6 @@ JSX 的写法最终会被 Babel 编译成上面 JS 的写法。
   ReactDOM.render(h1, document.getElementById('root'))
 </script>
 ```
-
 
 ## JSX 语法
 
