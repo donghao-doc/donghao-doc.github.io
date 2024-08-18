@@ -75,6 +75,7 @@ const config: Config = {
         src: 'img/logo.svg',
       },
       items: [
+        { type: 'docSidebar', sidebarId: 'basic', position: 'left', label: '基本功' },
         { type: 'docSidebar', sidebarId: 'framework', position: 'left', label: '框架' },
         // { type: 'docSidebar', sidebarId: 'tutorialSidebar', position: 'left', label: 'Tutorial' },
         // { to: '/blog', label: 'Blog', position: 'left' },
