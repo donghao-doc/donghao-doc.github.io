@@ -37,6 +37,11 @@ code {
   padding: 2px 4px;
 }
 
+/* 代码块中的注释不要使用斜体 */
+.theme-code-block .comment {
+  font-style: normal !important;
+}
+
 /* 滚动条 */
 ::-webkit-scrollbar {
   width: 7px;
