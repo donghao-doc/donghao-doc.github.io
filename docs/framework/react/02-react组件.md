@@ -691,3 +691,86 @@ class Demo extends React.Component {
   }
 }
 ```
+
+### 注意点
+
+```jsx
+class Login extends React.Component {
+  handleUsernameChange = (event) => {
+    console.log('userNameEvent:', event)
+  }
+  handlePasswordChange = (event) => {
+    console.log('passwordEvent:', event)
+  }
+
+  render() {
+    return (
+      <form onSubmit={this.handleSubmit}>
+
+        {/*
+          下面这种写法，是将函数的返回值作为事件回调赋值给 onChange
+          React 在调用 render 时，会把这个事件回调函数调一次，event 就是 'username'
+          而当用户输入时，事件回调函数就不会再调用，因为这里是将函数的返回值（undefined）赋值给 onChange
+        */}
+        <input type="text" name="username" onChange={this.handleUsernameChange('username')} />
+
+        {/* 下面这种写法，是将函数作为事件回调赋值给 onChange */}
+        <input type="password" name="password" onChange={this.handlePasswordChange} />
+
+      </form>
+    )
+  }
+}
+```
+
+### 使用函数柯里化
+
+```jsx title="使用柯里化写法"
+class Login extends React.Component {
+  state = { username: '', password: '' }
+
+  // saveData 函数是开发者自己调用的，不是 React 调用的
+  saveData = (dataType) => {
+    // 这里 return 的函数，才是真正传给 onChange 的事件回调函数
+    // 它是在事件被触发时，React 调用的，所以它可以接收 event 参数
+    return (event) => {
+      this.setState({ [dataType]: event.target.value })
+    }
+  }
+
+  render() {
+    return (
+      <form>
+        <input type="text" name="username" onChange={this.saveData('username')} />
+        <input type="password" name="password" onChange={this.saveData('password')} />
+      </form>
+    )
+  }
+}
+```
+
+```jsx title="不用柯里化写法"
+class Login extends React.Component {
+  state = { username: '', password: '' }
+
+  saveData = (dataType, event) => {
+    this.setState({ [dataType]: event.target.value })
+  }
+
+  handleSubmit = () => {
+    event.preventDefault()
+    const { username, password } = this.state
+    console.log('submit:', username, password)
+  }
+
+  render() {
+    return (
+      <form onSubmit={this.handleSubmit}>
+        <input type="text" onChange={event => this.saveData('username', event)} />
+        <input type="password" onChange={event => this.saveData('password', event)} />
+        <button>登录</button>
+      </form>
+    )
+  }
+}
+```
