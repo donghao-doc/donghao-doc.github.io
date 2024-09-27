@@ -33,7 +33,9 @@
 code {
   color: #c7254e;
   background-color: #f6f6f6;
+  border: 0;
   border-radius: 3px;
+  line-height: 1.7;
   padding: 2px 4px;
 }
 
