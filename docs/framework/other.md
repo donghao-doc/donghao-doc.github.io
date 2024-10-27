@@ -1,4 +1,7 @@
-# 杂项
+---
+#sidebar_position: 1
+title: 周边
+---
 
 ## cjs 和 umd 的区别
 
