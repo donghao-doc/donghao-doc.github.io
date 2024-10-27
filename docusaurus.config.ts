@@ -77,6 +77,8 @@ const config: Config = {
       items: [
         { type: 'docSidebar', sidebarId: 'basic', position: 'left', label: '基本功' },
         { type: 'docSidebar', sidebarId: 'framework', position: 'left', label: '框架' },
+        { type: 'docSidebar', sidebarId: 'project', position: 'left', label: '项目' },
+        // { type: 'docSidebar', sidebarId: 'case', position: 'left', label: '效果' },
         // { type: 'docSidebar', sidebarId: 'tutorialSidebar', position: 'left', label: 'Tutorial' },
         // { to: '/blog', label: 'Blog', position: 'left' },
         { href: 'https://github.com/facebook/docusaurus', label: 'GitHub', position: 'right' },
@@ -129,7 +131,8 @@ const config: Config = {
     },
     prism: {
       theme: prismThemes.github,
-      darkTheme: prismThemes.dracula,
+      darkTheme: prismThemes.oceanicNext,
+      additionalLanguages: ['bash', 'json'],
     },
     docs: {
       sidebar: {
