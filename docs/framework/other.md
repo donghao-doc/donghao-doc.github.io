@@ -68,3 +68,38 @@ class Login extends React.Component {
 :::tip
 对于非受控组件，在获取表单元素的值时，需要用到 `ref` 来标识元素。由于 React 文档说了不要过度地使用 ref，所以更推荐使用受控组件。
 :::
+
+
+## 纯函数
+
+⼀个函数的返回结果只依赖于它的参数，并且在执⾏过程中没有副作⽤，我们就把这个函数叫做纯函数。
+
+副作⽤（side effect）是指函数或表达式在执⾏过程中对外部环境产⽣的影响，⽽不仅仅是返回⼀个值。
+
+副作⽤包括但不限于对全局变量、参数、数据结构、⽂件系统、⽹络请求等进⾏修改。
+
+```js title="非纯函数"
+let a = 5
+
+function fn(b) {
+  return a + b  // 因为返回值依赖了外部的 a，而不仅仅是依赖参数
+}
+fn(8)
+
+function fn(obj, a) {
+  obj.age = 18    // 修改了参数
+  return obj.age + a
+}
+```
+
+```js title="纯函数"
+function fn(a) {
+  return a + 5
+}
+
+let fn = (b) => {
+  let obj = { x: 1 }
+  obj.x = 2
+  return obj.x + b
+}
+```
