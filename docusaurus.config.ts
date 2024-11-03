@@ -133,7 +133,7 @@ const config: Config = {
     prism: {
       theme: prismThemes.github,
       darkTheme: prismThemes.oceanicNext,
-      additionalLanguages: ['bash', 'json'],
+      additionalLanguages: ['bash', 'json', 'scss'],
     },
     docs: {
       sidebar: {
