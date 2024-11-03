@@ -32,8 +32,8 @@ create-react-app hello-react
 │  ├─App.css
 │  ├─App.js         ➡ App 组件
 │  ├─App.test.js
-│  ├─index.css
-│  ├─index.js       ➡ 入口文件
+│  ├─index.css      ➡ 全局样式文件
+│  ├─index.js       ➡ 入口文件，html 只会加载这个文件
 │  ├─logo.svg
 │  ├─reportWebVitals.js  ➡ 性能分析文件（需要 web-vitals 库的支持）
 │  └─setupTests.js       ➡ 组件单元测试文件（需要 jest-dom 库的支持）
@@ -100,6 +100,8 @@ reportwebVitals();
 
 ## 样式的模块化
 
+### Css Modules
+
 在不同的组件中，如果使用了相同的类名，那么在 App 组件中引入时，后引入的组件中的样式会覆盖先引入的组件的样式。要解决这个问题，可以使用“样式的模块化”。
 
 如果将一个组件的 css 文件改名为 `xxx.module.css` 形式，那么在 js/jsx 文件中，可以使用如下形式引入并使用 css 文件中的样式。
@@ -117,4 +119,42 @@ export default class Welcome extends Component {
 }
 ```
 
-没有使用模块化样式的元素的类名是正常形式，如 `class="title"`；使用了模块化样式的元素的类名是以组件名（前缀）和随机字符（后缀）拼接的形式，如 `class="HelloReact_title_rCT7P"`。
+没有使用模块化样式的元素的类名是正常形式，如 `class="title"`。使用了模块化样式的元素的类名是以 `[组件名_类名_随机字符]` 的形式，如 `class="HelloReact_title_rCT7P"`。
+
+### 预处理器
+
+```scss title="welcome.scss"
+.welcome {
+  color: red;
+  font-size: 20px;
+}
+```
+
+```jsx title="Welcome.jsx"
+import './welcome.scss';
+
+function Welcome() {
+  return <div className="welcome">Welcome to React</div>;
+}
+```
+
+### CSS-in-JS
+
+CSS-in-JS 是一种将 CSS 样式嵌入到 JS 代码中的技术。
+
+CSS-in-JS 的优点是可以将样式和组件分离，使得代码更加模块化，更易维护。
+
+目前 React 社区中有很多 CSS-in-JS 方案，如 `styled-components`、`emotion` 等。
+
+```jsx
+import styled from 'styled-components';
+
+const StyledDiv = styled.div`
+  color: blue;
+  font-size: 20px;
+`;
+
+function Component() {
+ return <StyledDiv>Styled Text</StyledDiv>;
+}
+```
