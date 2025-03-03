@@ -32,10 +32,13 @@ const element = React.createElement('h1', null, 'Hello JSX');
 - 标签名首字母：
   - 若小写字母开头，React 会将该标签转换为 HTML 中的同名元素，若 HTML 中没有该同名元素，就报错。
   - 若大写字母开头，React 会把它当做组件渲染，若组件未定义，就报错。
+- JSX 中标签数组会自动展开。
 
 ```jsx title="示例"
 const id = 'title';
 const content = 'Hello React';
+const elementArr = [<h1>111</h1>, <h2>222</h2>]
+
 const VDOM = (
   <div>
     <h1 id={id} className="title">
@@ -44,6 +47,7 @@ const VDOM = (
       </span>
     </h1>
     <input type="text" />
+    {elementArr}
   </div>
 );
 ```
