@@ -34,12 +34,14 @@ title: Cursor
       "args": [
         "-y",
         "@modelcontextprotocol/server-filesystem",
+        // 路径需根据实际情况设置
         "/Users/edy/Desktop"
       ]
     },
     "mysql": {
       "command": "npx",
       "args": ["-y", "@f4ww4z/mcp-mysql-server"],
+      // env 需根据实际情况修改
       "env": {
         "MYSQL_HOST": "localhost",
         "MYSQL_USER": "fullstack_user",
