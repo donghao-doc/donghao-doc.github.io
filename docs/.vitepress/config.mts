@@ -28,6 +28,7 @@ export default defineConfig({
             { text: 'useState', link: '/react/useState' },
             { text: 'useEffect', link: '/react/useEffect' },
             { text: 'useContext', link: '/react/useContext' },
+            { text: 'useMemo', link: '/react/useMemo' },
           ]
         }
       ]
@@ -38,6 +39,9 @@ export default defineConfig({
     ],
     search: {
       provider: 'local'
+    },
+    outline: {
+      level: [2, 3], // 只显示大纲的2级和3级标题
     }
   }
 })
