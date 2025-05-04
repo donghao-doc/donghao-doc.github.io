@@ -27,6 +27,7 @@ export default defineConfig({
           items: [
             { text: 'useState', link: '/react/useState' },
             { text: 'useEffect', link: '/react/useEffect' },
+            { text: 'useContext', link: '/react/useContext' },
           ]
         }
       ]
