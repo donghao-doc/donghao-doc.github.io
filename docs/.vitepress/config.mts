@@ -35,7 +35,8 @@ export default defineConfig({
         }
       ],
       '/开发环境/': [
-        { text: 'Git', link: '/开发环境/git' }
+        { text: 'Git', link: '/开发环境/git' },
+        { text: 'Cursor', link: '/开发环境/cursor' }
       ]
     },
 
