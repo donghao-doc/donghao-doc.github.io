@@ -9,7 +9,8 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'Home', link: '/' },
-      { text: 'React', link: '/react/' }
+      { text: 'React', link: '/react/' },
+      { text: '开发环境', link: '/开发环境/' }
     ],
 
     sidebar: {
@@ -32,6 +33,9 @@ export default defineConfig({
             { text: 'useMemo', link: '/react/useMemo' },
           ]
         }
+      ],
+      '/开发环境/': [
+        { text: 'Git', link: '/开发环境/git' }
       ]
     },
 
