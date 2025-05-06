@@ -34,6 +34,7 @@ export default defineConfig({
             { text: 'useCallback', link: '/react/useCallback' },
             { text: 'useReducer', link: '/react/useReducer' },
             { text: 'useRef', link: '/react/useRef' },
+            { text: 'useId', link: '/react/useId' },
           ]
         }
       ],
