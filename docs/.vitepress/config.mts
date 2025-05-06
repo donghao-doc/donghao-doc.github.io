@@ -32,6 +32,8 @@ export default defineConfig({
             { text: 'useContext', link: '/react/useContext' },
             { text: 'useMemo', link: '/react/useMemo' },
             { text: 'useCallback', link: '/react/useCallback' },
+            { text: 'useReducer', link: '/react/useReducer' },
+            { text: 'useRef', link: '/react/useRef' },
           ]
         }
       ],
