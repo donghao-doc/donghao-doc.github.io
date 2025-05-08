@@ -76,7 +76,7 @@ function Example() {
     setCount((prevCount) => ({ ...prevCount, value: prevCount.value + 1 }));
   };
   const handleClick2 = () => {
-    setArr((prevArr) => [...prevArr, 4]);
+    setArr([...arr, 4, 5]);
   };
 }
 ```
