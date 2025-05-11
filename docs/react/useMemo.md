@@ -1,21 +1,16 @@
 # React.memo 与 useMemo
 
-`React.memo` 与 `useMemo` 都可用于性能优化，它们的区别在于：
-
-- `React.memo` 专注于组件的缓存，而 `useMemo` 可用于数据和组件的缓存。
-- `React.memo` 基于 props 的变化判断是否重新渲染组件，而 `useMemo` 是基于依赖项变化。
-
 ## React.memo
 
 函数组件本身没有识别 props 的能⼒，每次⽗组件的更新相当于是给⼦组件传递了⼀个新的 props，导致子组件重新渲染。
 
-`React.memo` 是高阶组件，用于优化函数组件性能，让函数组件仅在 props 变化时重新渲染，避免因为⽗组件重新渲染导致的不必要的⼦组件渲染。
+`React.memo` 是一个高阶组件，用于优化函数组件性能，让函数组件仅在 props 变化时重新渲染，避免因为⽗组件重新渲染导致的不必要的⼦组件渲染。
 
 ```jsx
 import React, { useState, useEffect } from "react";
 import Child from "./Child";
 
-const MyChild = React.memo(Child);
+const MyChild = React.memo(Child); // [!code highlight]
 
 function App() {
   const [data, setData] = useState("初始数据");
@@ -32,9 +27,9 @@ function App() {
 
 ## useMemo
 
-`useMemo` 可用于缓存函数的计算结果，或缓存函数组件。
+`useMemo` 可用于缓存函数的值，或缓存函数组件。
 
-仅在依赖项改变时更新，避免在每次渲染时重复计算。
+`useMemo` 中的函数仅在依赖项改变时重新执行，以此避免在每次渲染时重复执行。
 
 ```jsx
 useMemo(() => {
@@ -48,7 +43,7 @@ useMemo(() => {
 
 :::
 
-### 缓存函数计算结果
+### 缓存函数值
 
 以下示例，修改颜色，组件重新渲染时，total 函数不会重新执行。
 
@@ -103,9 +98,18 @@ function App() {
 }
 ```
 
+## 区别
+
+`React.memo` 与 `useMemo` 都可用于性能优化，它们的区别在于：
+
+- `React.memo` 专注于组件的缓存，而 `useMemo` 可用于数据或组件的缓存。
+- 对于缓存组件，`React.memo` 基于 props 的变化来判断是否重新渲染，而 `useMemo` 是基于依赖项的变化。
+
 ## 注意事项
 
-`React.memo` 和 `useMemo` 可以优化性能，但本身也存在额外的性能开销。建议在以下场景使用：
+虽然 `React.memo` 与 `useMemo` 可用于性能优化，但它们本身也存在一定的性能开销，所以不能滥用。
+
+建议在以下场景使用：
 
 - 组件中有复杂的计算逻辑。
 - 组件的重新渲染成本较高。

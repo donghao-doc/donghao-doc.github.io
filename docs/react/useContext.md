@@ -1,6 +1,6 @@
 # useContext
 
-`useContext` 用于订阅和读取 context 值，简化了在组件中获取上下文数据的方式。
+`useContext` 用于读取 context 的值和订阅 context 的变化，简化了在组件中获取上下文数据的方式。
 
 但仍然需要在上层组件树中使⽤ `<MyContext.Provider>` 来为下层组件提供 context。
 
