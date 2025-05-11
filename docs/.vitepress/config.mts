@@ -36,6 +36,13 @@ export default defineConfig({
             { text: 'useRef', link: '/react/useRef' },
             { text: 'useId', link: '/react/useId' },
           ]
+        },
+        {
+          text: '全家桶',
+          collapsed: false,
+          items: [
+            { text: 'Router', link: '/react/router' },
+          ]
         }
       ],
       '/开发环境/': [
