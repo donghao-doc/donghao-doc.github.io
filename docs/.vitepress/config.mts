@@ -38,7 +38,7 @@ export default defineConfig({
           ]
         },
         {
-          text: '全家桶',
+          text: 'React 生态',
           collapsed: false,
           items: [
             { text: 'Router', link: '/react/router' },
