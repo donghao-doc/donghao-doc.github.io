@@ -5,7 +5,7 @@
 `useCallback` 接收两个参数：
 
 - 第一个参数：需要缓存的函数。
-- 第二个参数：依赖项数组，当依赖项变化时，才会重新创建函数。依赖项不变时，即使组件重新渲染，函数引用也保持不变。
+- 第二个参数：依赖项数组，当依赖项变化时，才会重新创建函数。依赖项不变时，即使组件重新渲染，函数的引用也保持不变。
 
 ```jsx
 const memoizedCallback = useCallback(() => {
@@ -63,6 +63,7 @@ function App() {
     return 123;
   };
 
+  // 当 num 变化时，myFn 才会重新创建
   let myFn = useCallback(fn, [num]);
 
   return (
@@ -73,19 +74,16 @@ function App() {
     </div>
   );
 }
-
-export default App;
 ```
 
 ## 注意事项
 
-- 避免过度优化：不要在所有函数上都使用 `useCallback`，只在需要的地方使用它，比如传递给使用了 `React.memo` 的子组件的回调函数。
+- 避免过度优化：不要给所有函数都使用 `useCallback`，只在需要的地方使用它，比如传递给使用了 `React.memo` 的子组件的回调函数。
 - 性能权衡：`useCallback` 本身也需要额外的内存来存储函数，并且需要进行依赖项的比较，这些都会带来一定的性能开销。
 - 合理使用：如果子组件经常重新渲染，且回调函数比较复杂，这时使用 `useCallback` 才更有意义。
 
 ## 与 useMemo 的比较
 
-`useCallback` 的⽤法与 `useMemo` 类似，区别在于 `useCallback` 缓存的是函数，⽽ `useMemo` 缓存的是值。
+`useCallback` 与 `useMemo` 类似，区别在于 `useCallback` 主要用来缓存函数，而 `useMemo` 主要用来缓存值。
 
-- `useCallback(fn, deps)` 相当于 `useMemo(() => fn, deps)`。
-- `useMemo` 主要是⽤来缓存值，⽽ `useCallback` 主要⽤来缓存函数。
+`useCallback(fn, deps)` 相当于 `useMemo(() => fn, deps)`。
