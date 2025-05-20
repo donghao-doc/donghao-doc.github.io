@@ -1,19 +1,15 @@
 # useReducer
 
-`useReducer` 可以作为 `useState` 的替代⽅案，处理更复杂的场景：
-
-- 组件状态逻辑较复杂
-- 涉及多个子值
-- 下一个状态依赖于之前的状态
+`useReducer` 可以作为 `useState` 的替代⽅案，处理更复杂的组件状态逻辑。
 
 ```jsx
 const [state, dispatch] = useReducer(
-  // 第⼀个参数是 reducer 函数，接收当前状态和行为对象，返回新状态
+  // 第⼀个参数是 reducer 函数，接收当前状态和行为对象，返回一个新状态
   (state, action) => {
     return newState;
   },
   // 第⼆个参数是 state 初始值
-  initialArg,
+  initialState,
   // 第三个参数是⽤于计算初始值的函数，可选
   init
 );
@@ -21,7 +17,11 @@ const [state, dispatch] = useReducer(
 
 ## 计数器示例
 
-```jsx
+`useReducer` 可以将数据与操作数据的方法整合到一起，使代码更易读。
+
+:::code-group
+
+```jsx [定义 reducer 函数]
 // 定义 reducer 函数处理 add 和 minus 行为
 
 function myReducer(state, action) {
@@ -37,7 +37,7 @@ function myReducer(state, action) {
 export { myReducer };
 ```
 
-```jsx
+```jsx [使用 reducer 函数]
 import React, { useReducer, useState } from "react";
 import { myReducer } from "./reducers";
 
@@ -56,7 +56,9 @@ function App() {
 }
 ```
 
-## 高级用法
+:::
+
+## 第三个参数
 
 可以通过第三个参数（初始化函数）来自定义初始状态的计算逻辑。
 
@@ -69,7 +71,7 @@ function init(initCount) {
 }
 
 function App() {
-  // 0 会作为 init 函数中的参数传⼊
+  // 0 会作为 init 函数的参数传⼊，此时 reducer 的初始值为 "hello"
   const [state, dispatch] = useReducer(myReducer, 0, init);
 
   return (
