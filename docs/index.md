@@ -5,7 +5,7 @@ layout: home
 hero:
   name: "Barry's Site"
   text: "我的全栈学习笔记"
-  tagline: My great project tagline
+  tagline: 包含前端、后端、数据库、运维、AI等全栈知识
   actions:
     - theme: brand
       text: Markdown Examples
@@ -15,8 +15,8 @@ hero:
       link: /api-examples
 
 features:
-  - title: Feature A
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+  - title: 简明扼要
+    details: 拒绝冗长，拒绝废话，力求简洁明了
   - title: Feature B
     details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
   - title: Feature C
