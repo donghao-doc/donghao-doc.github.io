@@ -14,6 +14,12 @@ export default defineConfig({
 
     socialLinks: [
       { icon: 'github', link: 'https://github.com/donghao-doc/donghao-doc.github.io' }
-    ]
+    ],
+    search: {
+      provider: 'local'
+    },
+    outline: {
+      level: [2, 3], // 只显示大纲的2级和3级标题
+    },
   }
 })
