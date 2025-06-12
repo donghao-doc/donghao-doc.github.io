@@ -8,9 +8,22 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'Home', link: '/' },
+      { text: 'Flutter', link: '/flutter/dev-env' },
     ],
 
-    sidebar: [],
+    sidebar: [
+      {
+        text: '开发环境',
+        link: '/flutter/dev-env'
+      },
+      {
+        text: 'Dart',
+        collapsed: false,
+        items: [
+          { text: '基础语法', link: '/flutter/dart-base' },
+        ]
+      }
+    ],
 
     socialLinks: [
       { icon: 'github', link: 'https://github.com/donghao-doc/donghao-doc.github.io' }
