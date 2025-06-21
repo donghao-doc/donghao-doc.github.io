@@ -10,11 +10,14 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'Home', link: '/' },
+      { text: '开发配置', link: '/dev-config/git' },
     ],
 
-    sidebar: [
-      
-    ],
+    sidebar: {
+      '/dev-config/': [
+        { text: 'Git 常用操作', link: '/dev-config/git' },
+      ]
+    },
 
     socialLinks: [
       { icon: 'github', link: 'https://github.com/donghao-doc/donghao-doc.github.io' }
