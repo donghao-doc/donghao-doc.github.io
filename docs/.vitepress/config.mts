@@ -11,12 +11,16 @@ export default defineConfig({
     nav: [
       { text: 'Home', link: '/' },
       { text: 'Vue', link: '/vue/project-build' },
+      { text: '开发配置', link: '/dev-config/git' },
     ],
 
     sidebar: {
       '/vue/': [
         { text: '项目构建', link: '/vue/project-build' },
       ],
+      '/dev-config/': [
+        { text: 'Git 常用操作', link: '/dev-config/git' },
+      ]
     },
 
     socialLinks: [
