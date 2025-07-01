@@ -11,6 +11,7 @@ export default defineConfig({
     nav: [
       { text: 'Home', link: '/' },
       { text: 'Vue', link: '/vue/project-build' },
+      { text: '三方库', link: '/third-party/pixi' },
       { text: '开发配置', link: '/dev-config/git' },
     ],
 
@@ -20,6 +21,9 @@ export default defineConfig({
       ],
       '/dev-config/': [
         { text: 'Git 常用操作', link: '/dev-config/git' },
+      ],
+      '/third-party/': [
+        { text: 'PixiJS', link: '/third-party/pixi' },
       ]
     },
 
