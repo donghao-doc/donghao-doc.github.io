@@ -8,9 +8,14 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'Home', link: '/' },
+      { text: '项目', link: '/project/fastgen' },
     ],
 
-    sidebar: [],
+    sidebar: {
+      '/project/': [
+        { text: 'FastGen CLI', link: '/project/fastgen' },
+      ],
+    },
 
     socialLinks: [
       { icon: 'github', link: 'https://github.com/vuejs/vitepress' }
