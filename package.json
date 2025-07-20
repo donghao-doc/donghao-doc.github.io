@@ -1,0 +1,13 @@
+{
+  "name": "donghao-doc.github.io",
+  "version": "1.0.0",
+  "description": "我的前端学习笔记",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["前端", "笔记"],
+  "author": "BarryDong",
+  "license": "ISC",
+  "packageManager": "pnpm@10.13.1"
+}
