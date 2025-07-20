@@ -121,3 +121,22 @@ Shebang 是可执行文件的第一行的特殊注释，以 `#!` 开始，用于
 - `#!/usr/bin/node`：使用固定路径的 node（不推荐）。
 - `#!/bin/bash`：使用 bash 解释器。
 - `#!/usr/bin/env python3`：使用 Python3 解释器。
+
+## process.exit()
+
+`process.exit()` 用于立即终止 Node.js 进程，参数是退出码：
+
+- `process.exit(0)`：正常退出，表示成功。
+- `process.exit(1)`：异常退出，表示发生错误。
+- `process.exit(其他非零值)`：不同类型的错误。
+
+## SIGINT 信号
+
+`SIGINT`（中断）信号是当用户按下 `Ctrl+C` 时，会触发该信号，通常用于退出进程。
+
+```js
+// 处理 SIGINT 信号，退出进程
+process.on('SIGINT', () => {
+  process.exit(0);
+});
+```
