@@ -32,3 +32,25 @@
 `package.json`（必须）文件和 `LICENSE`（如果有）文件会被默认一起打包发布。
 
 :::
+
+## engines
+
+`engines` 字段用于指定项目运行所需的 Node.js 版本，npm 在安装时会检查版本兼容性。
+
+如以下示例，要求 Node.js 版本 18.0.0 或更高。
+
+```json
+"engines": {
+  "node": ">=18.0.0"
+}
+```
+
+## packageManager
+
+`packageManager` 字段用于指定推荐的包管理器和版本。
+
+如以下示例，推荐使用 pnpm 10.12.4 版本管理依赖，一些工具（如 Corepack）会据此自动使用指定的包管理器。
+
+```json
+"packageManager": "pnpm@10.12.4"
+```
