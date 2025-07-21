@@ -148,6 +148,20 @@ const techStackAnswer = await inquirer.prompt([
 ]);
 ```
 
+## Chalk
+
+Chalk 是一个用于为终端输出添加颜色和样式的库，支持彩色文本、背景色、加粗、下划线等。
+
+示例：
+
+```typescript
+import chalk from 'chalk';
+
+console.log(chalk.blue('🚀 欢迎使用 FastGen！'));
+console.log(chalk.red('❌ 错误信息'));
+console.log(chalk.green('🎉 成功信息'));
+```
+
 ## Badge
 
 <style>
