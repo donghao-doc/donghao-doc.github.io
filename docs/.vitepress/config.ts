@@ -13,9 +13,12 @@ export default defineConfig({
     ],
 
     sidebar: {
+      // 工程化
       '/engineering/': [
         { text: 'package.json', link: '/engineering/package-json' },
+        { text: 'esbuild', link: '/engineering/esbuild' },
       ],
+      // 项目
       '/project/': [
         { text: 'FastGen CLI', link: '/project/fastgen' },
       ],
