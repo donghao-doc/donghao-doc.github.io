@@ -76,6 +76,36 @@ $ fastgen
 
 7. 使用 Commander.js、Inquirer.js 实现命令行交互，Chalk 实现彩色输出，Download-git-repo 下载模板代码。
 
+## Commander.js
+
+Commander.js 是一个轻量级的命令行解析库，用于解析命令行参数、定义子命令、生成帮助信息等，常用于构建命令行工具。
+
+示例：
+
+```typescript
+import { Command } from 'commander';
+import { join } from 'path';
+import { readFileSync } from 'fs';
+
+// 创建命令行工具
+const program = new Command();
+
+// 读取 package.json 信息
+const packageJsonPath = join(__dirname, '../package.json');
+const packageInfo = JSON.parse(readFileSync(packageJsonPath, 'utf8'));
+
+program
+  .name(packageInfo.name)
+  .description(packageInfo.description)
+  .version(packageInfo.version)
+  .action(() => {
+    console.log('Hello, world!');
+  });
+
+// 解析命令行参数
+program.parse();
+```
+
 ## Badge
 
 <style>
