@@ -8,10 +8,14 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'Home', link: '/' },
+      { text: '工程化', link: '/engineering/package-json' },
       { text: '项目', link: '/project/fastgen' },
     ],
 
     sidebar: {
+      '/engineering/': [
+        { text: 'package.json', link: '/engineering/package-json' },
+      ],
       '/project/': [
         { text: 'FastGen CLI', link: '/project/fastgen' },
       ],
