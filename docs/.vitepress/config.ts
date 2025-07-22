@@ -8,11 +8,16 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'Home', link: '/' },
+      { text: '基础', link: '/basic/git' },
       { text: '工程化', link: '/engineering/package-json' },
       { text: '项目', link: '/project/fastgen' },
     ],
 
     sidebar: {
+      // 基础
+      '/basic/': [
+        { text: 'Git 常用操作', link: '/basic/git' },
+      ],
       // 工程化
       '/engineering/': [
         { text: 'package.json', link: '/engineering/package-json' },
