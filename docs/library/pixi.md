@@ -53,3 +53,52 @@ document.body.appendChild(app.view);
 `PIXI.Application` 会在页面上创建 canvas 元素，并且会自动选择使用 Canvas 模式或 WebGL 模式来渲染图形，这取决于浏览器支持哪一种方式。
 
 它会优先使用 WebGL 模式，如果要强制使用 Canvas 模式，可以在配置对象中设置 `forceCanvas: true`。
+
+## 加载器（loader）
+
+Pixi 的加载器可以加载图片、字体、音视频、JSON（纹理贴图集）等资源，并将其转化为纹理。
+
+```ts
+PIXI.loader
+  .add('images/anyImage.png')
+  .add(['images/image1.png', 'images/image2.png', 'images/image3.png'])
+  .load(setup);
+
+// 当资源加载完成时执行此回调
+function setup() {
+  console.log('加载完成')
+}
+```
+
+通过 `progress` 事件，还可以监控加载进度。
+
+```ts
+PIXI.loader
+  .add(['images/one.png', 'images/two.png', 'images/three.png'])
+  .on('progress', loadProgressHandler)
+  .load(setup);
+
+// 每加载一个资源，都会执行此回调
+function loadProgressHandler(loader, resource) {
+  // resource.url 可以知道哪个资源被加载了
+  console.log('loading: ' + resource.url); 
+  // loader.progress 可以知道整体的加载进度
+  console.log('progress: ' + loader.progress + '%'); 
+}
+
+// 当所有资源加载完毕，就会执行此回调
+function setup() {
+  console.log('setup');
+}
+```
+
+## 纹理（texture）
+
+纹理：因为 Pixi 使用 WebGL 在 GPU 上渲染图像，图像需要转换为 GPU 可处理的东西，这个东西就是纹理。
+
+纹理缓存：Pixi 的加载器加载资源时，会自动将其转化为纹理，并将纹理自动缓存下来。
+
+纹理缓存的好处：
+
+- 一是避免重复加载。
+- 二是创建精灵时，可以直接从缓存中获取纹理，提高效率。
