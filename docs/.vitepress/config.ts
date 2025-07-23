@@ -10,6 +10,7 @@ export default defineConfig({
       { text: 'Home', link: '/' },
       { text: '基础', link: '/basic/git' },
       { text: '工程化', link: '/engineering/package-json' },
+      { text: '三方库', link: '/library/pixi' },
       { text: '项目', link: '/project/fastgen' },
     ],
 
@@ -22,6 +23,10 @@ export default defineConfig({
       '/engineering/': [
         { text: 'package.json', link: '/engineering/package-json' },
         { text: 'esbuild', link: '/engineering/esbuild' },
+      ],
+      // 三方库
+      '/library/': [
+        { text: 'PixiJS', link: '/library/pixi' },
       ],
       // 项目
       '/project/': [
