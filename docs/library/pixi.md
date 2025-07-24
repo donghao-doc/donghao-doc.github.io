@@ -13,6 +13,8 @@ PixiJS 不是游戏引擎。
 [官方示例](https://pixijs.com/7.x/examples) |
 [Vue3 Pixi](https://www.npmjs.com/package/vue3-pixi?activeTab=readme)
 
+实际案例：https://github.com/donghao-doc/pixi-examples
+
 ## 安装和使用
 
 ```bash
