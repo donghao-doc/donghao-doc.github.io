@@ -306,3 +306,43 @@ app.stage.addChild(line);
 :::
 
 除此之外，还可以绘制椭圆、圆角矩形、多边形等图形。
+
+## 绘制文字（Text）
+
+Pixi 的 `Text` 对象继承自 `Sprite` 类，因此文字可以使用精灵的全部属性。
+
+```ts
+// 设置文字样式
+const style = new PIXI.TextStyle({
+  fontFamily: "Arial",
+  fontSize: 36,
+  fill: "white",
+  stroke: '#ff3300',
+  strokeThickness: 4,
+  dropShadow: true,
+  dropShadowColor: "#000000",
+  dropShadowBlur: 4,
+  dropShadowAngle: Math.PI / 6,
+  dropShadowDistance: 6,
+});
+
+// 创建文字
+const message = new PIXI.Text("Hello Pixi!", style);
+
+// 文字可以使用精灵的全部属性
+message.position.set(54, 96);
+```
+
+## 事件（interactive）
+
+Pixi 支持鼠标事件、触摸事件、键盘事件等等。
+
+要让一个对象支持事件，需要设置 `interactive: true`。
+
+```ts
+sprite.interactive = true;  // 使精灵可交互
+
+sprite.on('click', () => {
+  console.log('Sprite clicked!');
+});
+```
