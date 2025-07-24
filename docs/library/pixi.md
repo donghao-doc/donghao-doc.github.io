@@ -102,3 +102,132 @@ function setup() {
 
 - 一是避免重复加载。
 - 二是创建精灵时，可以直接从缓存中获取纹理，提高效率。
+
+## 精灵（sprite）
+
+精灵就是要添加到舞台上的**可视化对象**，通常用于显示图像（普通精灵）或动画（动画精灵）。
+
+### 显示精灵
+
+要在舞台上显示精灵，需要将精灵添加到舞台中。
+
+```ts
+// 创建 Pixi 应用（舞台）
+const app = new PIXI.Application({ 
+  width: 256,
+  height: 256,
+  antialias: true,
+  transparent: false,
+  resolution: 1
+});
+
+// 将舞台添加到页面
+document.body.appendChild(app.view);
+
+// 加载图片资源
+PIXI.loader
+  .add('images/cat.png')
+  .load(setup);
+
+function setup() {
+  // 获取纹理
+  const catTexture = PIXI.loader.resources['images/cat.png'].texture;
+  // 创建精灵
+  const catSprite = new PIXI.Sprite(catTexture);
+  // 把精灵添加到舞台
+  app.stage.addChild(catSprite);
+}
+```
+
+### 改变精灵的外观
+
+通过改变精灵的纹理，可以改变精灵的外观。
+
+```ts
+anySprite.texture = PIXI.utils.TextureCache['anyTexture.png'];
+```
+
+### 位置、大小、缩放、旋转
+
+:::code-group
+
+```ts [设置精灵位置]
+// 坐标系以舞台左上角为原点 (0, 0)
+sprite.x = 96;
+sprite.y = 96;
+
+// 或者
+sprite.position.set(x, y);
+```
+
+```ts [设置精灵大小]
+sprite.width = 80;
+sprite.height = 120;
+```
+
+```ts [设置精灵缩放]
+sprite.scale.x = 0.5;
+sprite.scale.y = 0.5;
+
+// 或者
+sprite.scale.set(0.5, 0.5);
+```
+
+```ts [设置精灵旋转]
+sprite.rotation = 0.5;
+```
+
+:::
+
+### 锚点
+
+精灵默认围绕着锚点进行旋转，锚点的位置默认为 `(0, 0)`，即精灵的左上角。
+
+也可以改变锚点的位置，让精灵围绕着中心进行旋转。
+
+```ts
+sprite.anchor.x = 0.5;
+sprite.anchor.y = 0.5;
+
+// 或者
+cat.anchor.set(x, y);
+```
+
+### 移动精灵
+
+使用 Pixi 提供的 `ticker` 创建一个函数，这个函数每秒会被执行 60 次。
+
+如以下代码，将精灵以每帧 1px 的速度向右移动。
+
+```ts
+function setup() {
+  app.ticker.add(delta => gameLoop(delta));
+}
+
+function gameLoop(delta) {
+  sprite.x += 1;
+}
+```
+
+### delta
+
+`delta` 是 Pixi 提供的一个参数，表示帧与帧之间的平均时间间隔，以秒为单位，是一个浮点数，用于让动画在不同帧率的设备上表现一致。
+
+理解：
+
+- 比如有两台设备，好设备从一帧到下一帧时间间隔是 1s，差设备时间间隔是 2s。
+- 动画效果是每帧移动 1px，当时间过去 10s，好设备切换了 10 帧，动画移动了 10x，差设备只切换了5帧，动画只移动了 5px，形成动画效果的差异。
+- 而 `delta` 表示帧与帧之间的平均时间间隔，在好设备上 `delta` 值为 1，差设备上 `delta` 值为 2。
+- 将以上代码改写为 `sprite.x += 1 * delta`，好设备上每帧移动 1px，差设备上每帧移动 2px，拿距离换时间，弥补差距，从而实现动画效果表现一致。
+
+:::warning
+
+如果 `delta` 值过大，可能会导致动画跳跃、不连贯，某些情况下可能需要限制 `delta` 的最大值。
+
+:::
+
+:::tip
+
+`delta` 只是让动画效果在视觉上保持一致，一般来说可以不使用 `delta`。
+
+:::
