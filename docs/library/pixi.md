@@ -231,3 +231,78 @@ function gameLoop(delta) {
 `delta` 只是让动画效果在视觉上保持一致，一般来说可以不使用 `delta`。
 
 :::
+
+## 容器（container）
+
+容器可理解为一个盒子，可以把多个精灵添加到一个容器中，从而实现对精灵的分组。
+
+```ts
+// 创建容器
+const animalsContainer = new PIXI.Container();
+
+// 往容器中添加精灵
+animalsContainer.addChild(catSprite);
+animalsContainer.addChild(dogSprite);
+animalsContainer.addChild(tigerSprite);
+
+// 将容器添加到舞台
+app.stage.addChild(animalsContainer);
+```
+
+可以像操作精灵那样操作容器，如控制容器的位置、大小、缩放等，容器中的精灵也会随之改变。
+
+:::warning
+
+一个精灵只能拥有一个父级。如果一个精灵在 A 容器，又将该精灵添加到 B 容器，该精灵会自动从 A 容器移除。
+
+:::
+
+## 图形绘制（Graphics）
+
+Pixi 的绘制图形的 API 与 Canvas API 类似，不同的是，Pixi 中绘制图形都要从创建一个 `PIXI.Graphics` 实例开始。
+
+:::code-group
+
+```ts [绘制矩形]
+const rectangle = new PIXI.Graphics();
+
+rectangle.lineStyle(4, 0xFF3300, 1);
+rectangle.beginFill(0x66CCFF);
+rectangle.drawRect(0, 0, 64, 64);  // x, y, width, height
+rectangle.endFill();
+
+rectangle.x = 170;
+rectangle.y = 170;
+
+app.stage.addChild(rectangle);
+```
+
+```ts [绘制圆形]
+const circle = new PIXI.Graphics();
+
+circle.beginFill(0x9966FF);
+circle.drawCircle(0, 0, 32);  // x, y, radius
+circle.endFill();
+
+circle.x = 64;
+circle.y = 130;
+
+app.stage.addChild(circle);
+```
+
+```ts [绘制线]
+const line = new PIXI.Graphics();
+
+line.lineStyle(4, 0xFFFFFF, 1);
+line.moveTo(0, 0);
+line.lineTo(80, 50);
+
+line.x = 32;
+line.y = 32;
+
+app.stage.addChild(line);
+```
+
+:::
+
+除此之外，还可以绘制椭圆、圆角矩形、多边形等图形。
