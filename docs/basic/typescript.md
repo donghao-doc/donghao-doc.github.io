@@ -63,3 +63,40 @@ function fn(x: number, y: number): number {
 // 类型推导
 let d = 123; // TS 会推断变量 d 的类型是数字
 ```
+
+## TS 的数据类型
+
+TS 是 JS 的超集，所以 JS 中的数据类型，TS 都支持。
+
+TS 的六个新类型：`any`、`unknown`、`never`、`void`、`tuple`、`enum`。
+
+TS 的两个用于自定义类型的方式：`type`、`interface`。
+
+### any
+
+`any` 表示任意类型。
+
+`any` 可以赋值给其他类型，其他类型也可以赋值给 `any`，相当于关闭了类型检查。
+
+### unknown
+
+`unknown` 表示未知类型，适用于：起初不确定数据的具体类型，要后期才能确定。
+
+其他类型可以赋值给 `unknown`，但 `unknown` 不能赋值给其他类型。如果要将 `unknown` 赋值给其他类型，需要进行类型断言。
+
+`unknown` 可以理解为一个类型安全的 `any`。
+
+```ts
+let a: unknown;
+let b: string;
+
+// 类型判断
+if (typeof a === 'string') {
+  b = a;
+}
+
+// 类型断言
+b = a as string;
+b = <string>a;
+(a as string).toUpperCase();
+```
