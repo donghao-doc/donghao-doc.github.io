@@ -46,3 +46,20 @@ tsc --noEmitOnError --watch
 ```
 
 或修改 `tsconfig.json` 中的 `noEmitOnError` 配置。
+
+## 类型声明和类型推导
+
+```ts
+// 变量的类型声明
+let a: string;
+let b: number;
+let c: boolean;
+
+// 函数的参数和返回值的类型声明
+function fn(x: number, y: number): number {
+  return x + y;
+}
+
+// 类型推导
+let d = 123; // TS 会推断变量 d 的类型是数字
+```
