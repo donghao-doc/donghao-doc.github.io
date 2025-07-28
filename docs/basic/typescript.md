@@ -100,3 +100,41 @@ b = a as string;
 b = <string>a;
 (a as string).toUpperCase();
 ```
+
+### never
+
+`never` 表示任何值都不是，即：不应该有这样的值。
+
+```ts
+// 指定 a 的类型为 never，意味着 a 不能存储任何数据
+let a: never;
+
+// 以下对 a 的所有赋值都会有警告
+a = 1;
+a = true;
+a = undefined;
+a = null;
+```
+
+`never` 一般是 TS 主动推断出来的，而不会主动指定 `never` 类型。
+
+```ts
+// 指定 a 的类型为 string
+let a: string;
+a = 'hello';
+
+if (typeof a === 'string') {
+  console.log(a.toUpperCase());
+} else {
+  console.log(a); // TS 会推断此处的 a 是 never，因为没有任何一个值符合此处的逻辑
+}
+```
+
+`never` 也可用于限制函数的返回值。
+
+```ts
+// 限制 throwError 函数不需要有任何返回值，任何值都不行，undefined、null 都不行
+function throwError(str: string): never {
+  throw new Error("程序异常退出:" + str);
+}
+```
