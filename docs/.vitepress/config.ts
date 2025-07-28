@@ -9,7 +9,7 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'Home', link: '/' },
-      { text: '基础', link: '/basic/git' },
+      { text: '基础', link: '/basic/typescript' },
       { text: '工程化', link: '/engineering/package-json' },
       { text: '三方库', link: '/library/pixi' },
       { text: '项目', link: '/project/fastgen' },
@@ -18,6 +18,7 @@ export default defineConfig({
     sidebar: {
       // 基础
       '/basic/': [
+        { text: 'TypeScript', link: '/basic/typescript' },
         { text: 'Git 常用操作', link: '/basic/git' },
       ],
       // 工程化
