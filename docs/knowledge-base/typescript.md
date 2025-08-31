@@ -62,3 +62,56 @@ function fn(): never {
   throw new Error('error');
 }
 ```
+
+### tuple（元组）
+
+元组与数组的区别：
+
+- 数组：元素类型相同，长度不固定。
+- 元组：每个位置的元素类型可以不同但已知，长度固定。
+
+```ts
+// 数组
+const arr: string[] = ['a', 'b'];
+
+// 元组
+const arr: [string, number, boolean] = ['hello', 123, true];
+```
+
+### enum（枚举）
+
+枚举用于定义一组常量，当一个元素有几个固定的可选值时，就可以使用枚举。
+
+:::code-group
+
+```ts [数字枚举]
+enum Gender {
+  Male = 1,
+  Female,
+}
+
+// 数字枚举的值会自动递增
+// 等价于：
+// enum Gender {
+//   Male = 1,
+//   Female = 2,
+// }
+```
+
+```ts [字符串枚举]
+enum Direction {
+  Up = 'UP',
+  Down = 'DOWN',
+  Left = 'LEFT',
+  Right = 'RIGHT',
+}
+```
+
+:::
+
+获取枚举值：
+
+```ts
+const gender = Gender.Male;
+const direction = Direction['Up'];
+```
