@@ -89,7 +89,7 @@ function fn(): never {
 
 元组与数组的区别：
 
-- 数组：元素类型相同，长度不固定。
+- 数组：所有元素类型相同，长度不固定。
 - 元组：每个位置的元素类型可以不同但已知，长度固定。
 
 ```ts
@@ -137,3 +137,74 @@ enum Direction {
 const gender = Gender.Male;
 const direction = Direction['Up'];
 ```
+
+### 对象、数组、函数
+
+:::code-group
+
+```ts [对象]
+const person: {
+  name: string;
+  age: number;
+  gender?: string; // 可选属性
+  readonly id: number; // 只读属性
+  [key: string]: any; // 任意属性
+} = {
+  name: '张三',
+  age: 18,
+  id: 1,
+  skills: ['游泳', '跑步'],
+};
+
+// 错误：无法修改只读属性
+person.id = 2;
+```
+
+```ts [数组]
+const arr: string[] = ['a', 'b'];
+
+// 泛型数组
+const arr: Array<string> = ['a', 'b'];
+
+// 二维数组
+const arr: string[][] = [
+  ['a', 'b'],
+  ['c', 'd'],
+];
+
+// 对象数组
+const arr: { name: string; age: number }[] = [
+  { name: '张三', age: 18 },
+  { name: '李四', age: 20 },
+];
+```
+
+```ts [函数]
+// 指定参数、返回值类型
+function fn(a: number, b: string): string {
+  return a + b;
+}
+
+// void 表示没有返回值
+function fn(a: number, b: string): void {
+  console.log(a + b);
+}
+
+// 可选参数
+// 可选参数必须放在必选参数后面
+function fn(a: number, b: string, c?: number): string {
+  return a + b + c;
+}
+
+// 默认参数
+function fn(a: number, b: string, c: number = 10): string {
+  return a + b + c;
+}
+
+// 剩余参数
+function fn(a: number, b: string, ...rest: number[]): string {
+  return a + b + rest.reduce((acc, curr) => acc + curr, 0);
+}
+```
+
+:::
