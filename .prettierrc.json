@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json.schemastore.org/prettierrc",
+  "overrides": [
+    {
+      "files": ["**/*.md", "**/*.mdx"],
+      "options": {
+        "embeddedLanguageFormatting": "auto",
+        "singleQuote": true
+      }
+    }
+  ]
+}
