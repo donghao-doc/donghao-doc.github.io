@@ -16,6 +16,28 @@ tsc app.ts
 tsc app.ts -w
 ```
 
+## tsconfig.json
+
+`tsconfig.json` 是 TS 的配置文件，用于定义 TS 的编译规则，供 `tsc` 编译器使用。
+
+```sh
+# 生成 tsconfig.json 文件
+tsc --init
+```
+
+常用配置：
+
+- `target`：指定编译后的 JS 版本，可选值有 `ES5`、`ES6`、`ES2016`、`ESNext` 等。
+- `module`：指定模块化规范，可选值有 `CommonJS`、`UMD`、`AMD`、`ES2015`、`ESNext` 等。
+- `outDir`：指定编译后的 JS 文件的输出目录。
+- `rootDir`：指定编译时的根目录。
+- `strict`：启用所有严格类型检查选项。
+- `noImplicitAny`：禁止隐式 any 类型。
+- `noEmitOnError`：在有错误时，不生成 `.js` 文件。
+- `include`：指定要编译的文件，若未设置，会包含当前目录及子目录下的所有 TS 文件。
+- `exclude`：指定不编译的文件，若未设置，会自动排除 `node_modules` 目录。
+- `files`：手动指定要编译的文件，忽略 `include` 和 `exclude` 的配置。
+
 ## TS 的数据类型
 
 TS 是 JS 的超集，所以 JS 中的数据类型，TS 都支持。
