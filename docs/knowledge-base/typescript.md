@@ -208,3 +208,98 @@ function fn(a: number, b: string, ...rest: number[]): string {
 ```
 
 :::
+
+### type
+
+type 用于定义类型别名，即给现有类型起一个新的名字。
+
+:::code-group
+
+```ts [基本使用]
+type A = string | number | boolean;
+
+type B = (a: number, b: string) => string;
+
+type C = A | B;
+
+type Person = {
+  name: string;
+  age: number;
+};
+
+type Persons = Person[];
+```
+
+```ts [type 不能重名]
+type Person = {
+  name: string;
+  age: number;
+};
+
+// 错误：type 不能重名
+type Person = {
+  name: string;
+  age: number;
+};
+```
+
+:::
+
+### interface
+
+interface（接口）通常用于定义对象的类型。
+
+:::code-group
+
+```ts [基本使用]
+interface Person {
+  readonly id: number; // 只读属性
+  name: string;
+  age: number;
+  gender?: string; // 可选属性
+  [key: string]: any; // 任意属性
+}
+
+const persons: Person[] = [
+  { name: '张三', age: 18, id: 1 },
+  { name: '李四', age: 20, id: 2 },
+];
+```
+
+```ts [接口继承]
+interface Person {
+  name: string;
+  age: number;
+}
+
+// 使用 extends 实现继承
+interface Student extends Person {
+  grade: number;
+}
+
+// 继承多个接口
+interface Student extends Person, Person2 {
+  grade: number;
+}
+```
+
+```ts [接口合并]
+interface Person {
+  name: string;
+  age: number;
+}
+
+// 同名的接口会自动合并
+interface Person {
+  gender: string;
+}
+
+// 等价于：
+interface Person {
+  name: string;
+  age: number;
+  gender: string;
+}
+```
+
+:::
