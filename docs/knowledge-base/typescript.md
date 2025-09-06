@@ -303,3 +303,24 @@ interface Person {
 ```
 
 :::
+
+## 联合类型、交叉类型
+
+- 联合类型（`|`）：取值可以是多种类型中的任意一种。
+- 交叉类型（`&`）：将多个类型合并成一个类型。
+
+:::code-group
+
+```ts [联合类型]
+const a: string | number | boolean;
+const b: (number | string)[] = [1, 'string'];
+```
+
+```ts [交叉类型]
+type Person = { name: string, age: number };
+type Student = { grade: number };
+
+const obj: Person & Student = { name: '张三', age: 18, grade: 1 };
+```
+
+:::
