@@ -324,3 +324,31 @@ const obj: Person & Student = { name: '张三', age: 18, grade: 1 };
 ```
 
 :::
+
+## typeof、keyof
+
+- `typeof` 用于返回一个值的类型。
+- `keyof` 用于返回一个对象的键名组成的联合类型。
+
+:::code-group
+
+```ts [typeof]
+const person = {
+  name: '张三',
+  age: 18,
+}
+
+type Person = typeof person; // { name: string, age: number }
+type Name = typeof person.name; // string
+```
+
+```ts [keyof]
+const person = {
+  name: '张三',
+  age: 18,
+}
+
+type PersonKeys = keyof Person; // 'name' | 'age'
+```
+
+:::
