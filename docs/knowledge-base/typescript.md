@@ -317,7 +317,7 @@ const b: (number | string)[] = [1, 'string'];
 ```
 
 ```ts [交叉类型]
-type Person = { name: string, age: number };
+type Person = { name: string; age: number };
 type Student = { grade: number };
 
 const obj: Person & Student = { name: '张三', age: 18, grade: 1 };
@@ -336,7 +336,7 @@ const obj: Person & Student = { name: '张三', age: 18, grade: 1 };
 const person = {
   name: '张三',
   age: 18,
-}
+};
 
 type Person = typeof person; // { name: string, age: number }
 type Name = typeof person.name; // string
@@ -346,9 +346,51 @@ type Name = typeof person.name; // string
 const person = {
   name: '张三',
   age: 18,
-}
+};
 
 type PersonKeys = keyof Person; // 'name' | 'age'
 ```
+
+:::
+
+## 类型断言
+
+- **类型断言**：用于明确告诉 TS 编译器一个值的类型。
+- **非空断言**：用于告诉 TS 编译器某个值一定存在。
+- **双重断言（不推荐使用）**：通过先将一个类型断言为 `any` 或 `unknown`，再断言为目标类型，绕过类型检查的限制。适用于类型系统无法直接转换但你确信安全的场景，但容易导致运行时错误，应谨慎使用。
+
+:::code-group
+
+```ts [类型断言]
+function fn(m: string | number) {
+  (m as string).substring(1);
+}
+```
+
+```ts [非空断言]
+function fn(m: string | undefined) {
+  m!.substring(1);
+}
+```
+
+```ts [双重断言]
+const num: number = 123;
+
+// 报错：属性 'length' 在类型 'number' 上不存在
+num.length;
+
+// 报错：类型 'number' 转换为类型 'string' 可能是一个错误
+// 如果这是故意的，请先将表达式转换为 'unknown'
+(num as string).length;
+
+// 正确
+(num as unknown as string).length;
+```
+
+:::
+
+:::warning
+
+类型断言可以解决类型检查时的报错，但不能避免运行时错误，使用时需谨慎。
 
 :::
