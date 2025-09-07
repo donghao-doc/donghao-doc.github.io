@@ -419,3 +419,79 @@ num.length;
 类型断言可以解决类型检查时的报错，但不能避免运行时错误，使用时需谨慎。
 
 :::
+
+## 映射类型
+
+映射类型：基于旧类型创建新类型（对象类型）。
+
+`in` 后⾯跟的是联合类型，也可以是通过 `keyof` ⽣成的联合类型。
+
+:::code-group
+
+```ts [基本使用]
+type Key = 'name' | 'age';
+
+type Person = {
+  [K in Key]: string;
+};
+
+// 等价于：
+// type Person = {
+//   name: string;
+//   age: string;
+// };
+```
+
+
+```ts [配合 keyof 使用]
+type Person = {
+  name: string;
+  age: number;
+};
+
+type Person2 = {
+  [K in keyof Person]: Person[K];
+};
+
+// 等价于：
+// type Person2 = {
+//   name: string;
+//   age: number;
+// };
+```
+
+```ts [可选属性]
+type Person = {
+  name: string;
+  age: number;
+};
+
+type Person2 = {
+  [K in keyof Person]?: Person[K];
+};
+
+// 等价于：
+// type Person2 = {
+//   name?: string;
+//   age?: number;
+// };
+```
+
+```ts [只读属性]
+type Person = {
+  name: string;
+  age: number;
+};
+
+type Person2 = {
+  readonly [K in keyof Person]: Person[K];
+};
+
+// 等价于：
+// type Person2 = {
+//   readonly name: string;
+//   readonly age: number;
+// };
+```
+
+:::
