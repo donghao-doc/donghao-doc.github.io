@@ -353,6 +353,31 @@ type PersonKeys = keyof Person; // 'name' | 'age'
 
 :::
 
+## 类型推导
+
+如果没有明确指定类型，TS 会根据赋值语句、函数参数等上下文，自动推导出变量的类型。
+
+```ts
+let a = 123;
+
+a = 'hello'; // 报错：类型 'string' 不能赋值给类型 'number'
+```
+
+如果声明时没有赋值，则会被推导为 `any` 类型。
+
+```ts
+let a;
+
+// 正确
+a = 123;
+a = 'hello';
+
+// a 的类型被推导为 any
+function fn(a, b: string) {
+  return a + b;
+}
+```
+
 ## 类型断言
 
 - **类型断言**：用于明确告诉 TS 编译器一个值的类型。
