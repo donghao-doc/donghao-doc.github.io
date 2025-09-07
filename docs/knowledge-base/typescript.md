@@ -442,7 +442,6 @@ type Person = {
 // };
 ```
 
-
 ```ts [配合 keyof 使用]
 type Person = {
   name: string;
@@ -495,3 +494,126 @@ type Person2 = {
 ```
 
 :::
+
+## 模块
+
+任何包含 `import` 或 `export` 的文件，都被视为一个模块，相反，没有 `import` 或 `export` 的文件，都被视为一个全局文件。
+
+模块本身就是一个作用域，模块内部定义的变量、函数、类等，外部无法访问，但可以通过导出、导入的方式让外部访问。
+
+:::code-group
+
+```ts [导出]
+export interface Person = {
+  name: string;
+  age: number;
+};
+
+export default type Student = Person & {
+  grade: number;
+};
+
+export { Person, Student };
+export { type Person, type Student };
+export type { Person, Student };
+
+export type { Person, Student } from './a';
+export * from './a';
+```
+
+```ts [导入]
+import { Person, Student } from './person';
+import { type Person, type Student } from './person';
+import type { Person, Student } from './person';
+```
+
+:::
+
+## namespace
+
+namespace 用于定义一个命名空间，用于组织代码，避免命名冲突。
+
+官方不再推荐使用 namespace，而是推荐使用模块。
+
+```ts
+namespace Utils {
+  export const a = 1; // 如果不加 export，则默认为私有的，外部无法访问
+  export type B = string;
+  export function fn(a: string): string {
+    return a;
+  }
+}
+
+// 访问 namespace 内部的变量、类型、函数
+console.log(Utils.a);
+console.log(Utils.B);
+console.log(Utils.fn('hello'));
+```
+
+## declare
+
+`declare` 用于告诉 TS 编译器某个类型是存在的，可以直接使用，不需要再重复声明。
+
+`declare` 一般在 `.d.ts` 文件（类型声明文件）中使用。
+
+```ts
+declare type A = string;
+declare function fn(a: string): string;
+declare class Person {
+  name: string;
+  age: number;
+}
+
+// 声明外部模块的类型
+// 外部模块指的是通过 import 或 export 导入的模块，如项目中的 JS/TS 文件，或第三方库
+declare module 'a' {
+  export const a: number;
+  export function fn(a: string): string;
+  export class Person {
+    name: string;
+    age: number;
+  }
+}
+```
+
+### .d.ts 文件的加载机制
+
+#### 同名引入
+
+对于你⾃⼰写的模块，TS 会默认引⼊与该⽂件同名的 `.d.ts` ⽂件。
+
+#### 自动引入
+
+对于第三⽅库（如 lodash），如果你安装了对应的类型声明（如 `npm install @types/lodash`），TS 会⾃动识别 `node_modules/@types` 的声明⽂件，⽆需显式引⼊它们。
+
+#### 通过 tsconfig.json 配置自动加载
+
+```json
+{
+  "include": ["src/**/*"]
+}
+```
+
+`src/**/*` 表示包含 src ⽬录下的所有⽂件和⼦⽬录中的所有⽂件，⽆论⽂件的扩展名是什么，都应该纳⼊ TypeScript 编译的范围。
+
+如果 tsconfig.json 不做任何特殊设置，默认会加载项目中所有的 `.d.ts` ⽂件。
+
+#### 三斜线指令
+
+在⽂件顶部添加如下指令，显式告诉 TS 引⼊特定的 `.d.ts` 文件。
+
+```ts
+/// <reference path="xxx.d.ts" />
+```
+
+### 第三方库的类型声明
+
+很多第三⽅库默认都⾃带类型声明⽂件，如果没有⾃带，TS 社区基本也提供了它们的类型⽂件。
+
+这些类型声明⽂件都会作为⼀个单独的库，发布到 npm 的 `@types` 名称空间之下。
+
+⽐如，jQuery 的类型声明⽂件就发布成 `@types/jquery` 这个库，使⽤时安装这个库就可以了。
+
+```sh
+npm install @types/jquery --save-dev
+```
