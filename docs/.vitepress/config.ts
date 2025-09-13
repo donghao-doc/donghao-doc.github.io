@@ -22,6 +22,7 @@ export default defineConfig({
           collapsed: false,
           items: [
             { text: 'package.json', link: '/knowledge-base/package.json' },
+            { text: 'esbuild', link: '/knowledge-base/esbuild' },
           ]
         }
       ],
