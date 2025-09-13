@@ -9,7 +9,8 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'Home', link: '/' },
-      { text: '知识库', link: '/knowledge-base/typescript' }
+      { text: '知识库', link: '/knowledge-base/typescript' },
+      { text: '作品集', link: '/project/fastgen' },
     ],
 
     sidebar: {
@@ -26,6 +27,10 @@ export default defineConfig({
           ]
         }
       ],
+      // 作品集
+      '/project/': [
+        { text: 'FastGen', link: '/project/fastgen' },
+      ]
     },
 
     socialLinks: [
