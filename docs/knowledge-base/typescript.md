@@ -355,6 +355,100 @@ type PersonKeys = keyof Person; // 'name' | 'age'
 
 :::
 
+## 泛型
+
+泛型：在定义函数、接⼝或类的时候，不预先指定具体的类型，而是通过类型参数来表示，在使⽤的时候再通过类型参数来传入具体的类型。
+
+:::code-group
+
+```ts [函数]
+function fn<T, K>(a: T, b: K): T {
+  return a + b;
+}
+
+fn<string, number>('hello', 123);
+fn<number, string>(123, 'hello');
+```
+
+```ts [接口]
+interface Person<T, K> {
+  name: T;
+  age: K;
+}
+
+const person: Person<string, number> = { name: '张三', age: 18 };
+```
+
+```ts [类]
+class Person<T, K> {
+  name: T;
+  age: K;
+}
+
+const person = new Person<string, number>('张三', 18);
+```
+
+:::
+
+:::code-group
+
+```ts [泛型定义数组]
+const arr: Array<string> = ['a', 'b'];
+```
+
+```ts [type 中使⽤泛型]
+type Person<T, K> = {
+  name: T;
+  age: K;
+};
+
+const person: Person<string, number> = { name: '张三', age: 18 };
+```
+
+```ts [interface 中使⽤泛型]
+interface Person<T, K> {
+  name: T;
+  age: K;
+}
+
+const person: Person<string, number> = { name: '张三', age: 18 };
+```
+
+```ts [类型参数默认值]
+function fn<T, K = number>(a: T, b: K): T {
+  return a + b;
+}
+
+fn<string>('hello', 123);
+fn<number, string>(123, 'hello');
+```
+
+:::
+
+泛型约束：使用 `extends` 关键字，可以约束泛型参数的类型。
+
+泛型嵌套：在泛型中使用泛型，形如：`Array<Array<string>>`，以实现更灵活和抽象的泛型约束。
+
+:::code-group
+
+```ts [泛型约束]
+function fn<T extends string | number>(a: T): T {
+  return a;
+}
+
+fn<string>('hello');
+fn<number>(123);
+
+// 报错：Type 'boolean' does not satisfy the constraint 'string | number'.
+fn<boolean>(true);
+```
+
+```ts [泛型嵌套]
+const arr: Array<Array<string>> = [['a', 'b'], ['c', 'd']];
+```
+
+:::
+
 ## 工具类型
 
 - `Partial<T>`（部分类型）：将类型 T 的所有属性设置为可选属性。
