@@ -17,6 +17,13 @@ export default defineConfig({
       '/knowledge-base/': [
         { text: 'TypeScript', link: '/knowledge-base/typescript' },
         { text: 'Git', link: '/knowledge-base/git' },
+        {
+          text: '工程化',
+          collapsed: false,
+          items: [
+            { text: 'package.json', link: '/knowledge-base/package.json' },
+          ]
+        }
       ],
     },
 
