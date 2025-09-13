@@ -353,6 +353,156 @@ type PersonKeys = keyof Person; // 'name' | 'age'
 
 :::
 
+## 工具类型
+
+- `Partial<T>`（部分类型）：将类型 T 的所有属性设置为可选属性。
+- `Required<T>`（必填类型）：将类型 T 的所有属性设置为必选属性。
+- `Readonly<T>`（只读类型）：将类型 T 的所有属性设置为只读属性。
+- `Record<K, T>`：构造一个对象类型，其属性键为 `K` 类型，属性值为 `T` 类型。
+
+:::code-group
+
+```ts [Partial]
+interface User {
+  id: number;
+  name: string;
+  email: string;
+}
+
+type PartialUser = Partial<User>;
+// 等价于:
+// {
+//   id?: number;
+//   name?: string;
+//   email?: string;
+// }
+```
+
+```ts [Required]
+interface User {
+  id: number;
+  name: string;
+  email?: string;
+}
+
+type RequiredUser = Required<User>;
+// 等价于:
+// {
+//   id: number;
+//   name: string;
+//   email: string;  // 变为必需
+// }
+```
+
+```ts [Readonly]
+interface User {
+  id: number;
+  name: string;
+}
+
+type ReadonlyUser = Readonly<User>;
+
+const user: ReadonlyUser = { id: 1, name: 'Alice' };
+// user.id = 2; // 错误：只读属性不能被修改
+```
+
+```ts [Record]
+type StringToNumber = Record<string, number>;
+// 等价于: { [key: string]: number }
+
+const scores: Record<string, number> = {
+  math: 95,
+  english: 87,
+};
+```
+
+:::
+
+- `Exclude<T, U>`、`Extract<T, U>`：从类型 T 中排除/提取类型 U。
+- `Pick<T, K>`、`Omit<T, K>`：从对象类型 T 中选取/排除属性 K，返回一个新的对象类型。
+
+:::code-group
+
+```ts [Exclude]
+type T1 = Exclude<'a' | 'b' | 'c', 'a'>;
+// 等价于: "b" | "c"
+
+type T2 = Exclude<string | number | boolean, string>;
+// 等价于: number | boolean
+```
+
+```ts [Extract]
+type T1 = Extract<'a' | 'b' | 'c', 'a' | 'b'>;
+// 等价于: "a" | "b"
+
+type T2 = Extract<string | number | boolean, string>;
+// 等价于: string
+```
+
+```ts [Pick]
+interface User {
+  id: number;
+  name: string;
+  email: string;
+  age: number;
+}
+
+type UserBasic = Pick<User, 'id' | 'name'>;
+// 等价于:
+// {
+//   id: number;
+//   name: string;
+// }
+```
+
+```ts [Omit]
+interface User {
+  id: number;
+  name: string;
+  email: string;
+  password: string;
+}
+
+type PublicUser = Omit<User, 'password'>;
+// 等价于:
+// {
+//   id: number;
+//   name: string;
+//   email: string;
+// }
+```
+
+:::
+
+- `InstanceType<T>`：返回类型 T 的实例类型。
+- `NonNullable<T>`：从类型 T 中排除 `null` 和 `undefined`。
+- `ReturnType<T>`：返回类型 T 的返回值类型。
+
+:::code-group
+
+```ts [InstanceType]
+import { ref } from 'vue';
+import User from './user.vue';
+
+const userRef = ref<InstanceType<typeof User>>();
+```
+
+```ts [NonNullable]
+type T1 = NonNullable<string | number | undefined | null>;
+// 等价于: string | number
+```
+
+```ts [ReturnType]
+function getUser() {
+  return { id: 1, name: 'Alice' };
+}
+
+type UserType = ReturnType<typeof getUser>;
+// 等价于: { id: number; name: string; }
+```
+
+:::
+
 ## 类型推导
 
 如果没有明确指定类型，TS 会根据赋值语句、函数参数等上下文，自动推导出变量的类型。
