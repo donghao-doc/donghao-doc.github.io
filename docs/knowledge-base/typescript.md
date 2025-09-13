@@ -77,7 +77,7 @@ unknown 可以理解为**类型安全的 any**。
 
 `void` 表示**空值**，通常用于表示函数没有返回值。
 
-`never` 是 TS 的底层类型，表示**不可能存在的值**，通常用于表示函数抛出错误，或者永远不会有返回值。
+`never` 是 TS 的底层类型，表示**不可能存在的值**，通常用于表示函数抛出错误，或者陷入死循环，永远不会有返回值。
 
 ```ts
 function fn(): never {
@@ -103,6 +103,8 @@ const arr: [string, number, boolean] = ['hello', 123, true];
 ### enum（枚举）
 
 枚举用于定义一组常量，当一个元素有几个固定的可选值时，就可以使用枚举。
+
+枚举成员的值是只读的，不能被修改。
 
 :::code-group
 
@@ -645,7 +647,7 @@ type Person2 = {
 
 :::
 
-## 模块
+## 模块、namespace
 
 任何包含 `import` 或 `export` 的文件，都被视为一个模块，相反，没有 `import` 或 `export` 的文件，都被视为一个全局文件。
 
@@ -679,8 +681,6 @@ import type { Person, Student } from './person';
 
 :::
 
-## namespace
-
 namespace 用于定义一个命名空间，用于组织代码，避免命名冲突。
 
 官方不再推荐使用 namespace，而是推荐使用模块。
@@ -704,7 +704,7 @@ console.log(Utils.fn('hello'));
 
 `declare` 用于告诉 TS 编译器某个类型是存在的，可以直接使用，不需要再重复声明。
 
-`declare` 一般在 `.d.ts` 文件（类型声明文件）中使用。
+`declare` 一般在 `.d.ts` 文件（类型声明文件）中使用，为现有代码提供类型信息。
 
 ```ts
 declare type A = string;
