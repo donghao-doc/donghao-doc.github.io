@@ -44,5 +44,9 @@ export default defineConfig({
       { icon: 'github', link: 'https://github.com/donghao-doc/donghao-doc.github.io' }
     ],
     outline: [2, 3],
+    search: {
+      provider: 'local'
+    },
+    lastUpdated: true
   }
 })
