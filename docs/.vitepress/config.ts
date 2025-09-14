@@ -25,6 +25,13 @@ export default defineConfig({
             { text: 'package.json', link: '/knowledge-base/package.json' },
             { text: 'esbuild', link: '/knowledge-base/esbuild' },
           ]
+        },
+        {
+          text: '三方库',
+          collapsed: false,
+          items: [
+            { text: 'PixiJS', link: '/knowledge-base/pixi.js' },
+          ]
         }
       ],
       // 作品集
