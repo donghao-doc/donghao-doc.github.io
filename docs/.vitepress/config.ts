@@ -10,6 +10,7 @@ export default defineConfig({
     nav: [
       { text: 'Home', link: '/' },
       { text: '知识库', link: '/knowledge-base/typescript' },
+      { text: '解决方案', link: '/solution/wechat-scan-login' },
       { text: '作品集', link: '/project/fastgen' },
     ],
 
@@ -33,7 +34,12 @@ export default defineConfig({
           items: [
             { text: 'PixiJS', link: '/knowledge-base/pixi.js' },
           ]
-        }
+        },
+
+      ],
+      // 解决方案
+      '/solution/': [
+        { text: '微信扫码登录', link: '/solution/wechat-scan-login' },
       ],
       // 作品集
       '/project/': [
