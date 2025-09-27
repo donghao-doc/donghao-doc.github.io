@@ -18,6 +18,7 @@ export default defineConfig({
       '/knowledge-base/': [
         { text: 'TypeScript', link: '/knowledge-base/typescript' },
         { text: 'Git', link: '/knowledge-base/git' },
+        { text: '微信生态', link: '/knowledge-base/wechat' },
         {
           text: '工程化',
           collapsed: false,
