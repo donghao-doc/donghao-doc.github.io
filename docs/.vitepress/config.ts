@@ -8,18 +8,15 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'Home', link: '/' },
-      { text: 'Examples', link: '/markdown-examples' }
+      { text: '解决方案', link: '/solution/wechat-scan-login' },
     ],
 
-    sidebar: [
-      {
-        text: 'Examples',
-        items: [
-          { text: 'Markdown Examples', link: '/markdown-examples' },
-          { text: 'Runtime API Examples', link: '/api-examples' }
-        ]
-      }
-    ],
+      sidebar: {
+          // 解决方案
+          '/solution/': [
+              { text: '微信扫码登录', link: '/solution/wechat-scan-login' },
+          ],
+      },
 
     socialLinks: [
       { icon: 'github', link: 'https://github.com/vuejs/vitepress' }
