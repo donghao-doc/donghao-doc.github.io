@@ -149,6 +149,10 @@ https://api.weixin.qq.com/sns/oauth2/refresh_token?
   appid=APPID&grant_type=refresh_token&refresh_token=REFRESH_TOKEN
 ```
 
+:::tip
+若 `refresh_token` 失效，则需要用户重新授权登录。
+:::
+
 ### 3. 获取用户信息（后端）
 
 网站后端获取到 `access_token` 和 `openid` 后，可进一步调用微信接口获取微信服务器上的用户信息（如昵称、头像、地区等）。
