@@ -55,14 +55,14 @@ https://open.weixin.qq.com/connect/qrconnect?
 <div id="login_container"></div>
 
 <script>
-// 实例化 WxLogin
-const obj = new WxLogin({
-  id: "login_container", // 承载二维码的容器 ID
-  appid: "",
-  scope: "snsapi_login", // 固定值
-  redirect_uri: "", // 回调地址，需 URL Encode，域名须与开放平台中配置的授权回调域名一致
-  state: "", // 可用于防止 CSRF 攻击，建议带上该参数，可设置为简单的随机数加 session 进行校验
-});
+  // 实例化 WxLogin
+  const obj = new WxLogin({
+    id: 'login_container', // 承载二维码的容器 ID
+    appid: '',
+    scope: 'snsapi_login', // 固定值
+    redirect_uri: '', // 回调地址，需 URL Encode，域名须与开放平台中配置的授权回调域名一致
+    state: '', // 可用于防止 CSRF 攻击，建议带上该参数，可设置为简单的随机数加 session 进行校验
+  });
 </script>
 ```
 
