@@ -17,6 +17,7 @@ export default defineConfig({
       // 知识库
       '/knowledge/': [
         { text: 'Git', link: '/knowledge/git' },
+        { text: '微信生态', link: '/knowledge/wechat' },
       ],
       // 解决方案
       '/solution/': [
