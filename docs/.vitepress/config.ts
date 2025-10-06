@@ -18,6 +18,13 @@ export default defineConfig({
       '/knowledge/': [
         { text: 'Git', link: '/knowledge/git' },
         { text: '微信生态', link: '/knowledge/wechat' },
+        {
+          text: '三方库',
+          collapsed: false,
+          items: [
+            { text: 'PixiJS', link: '/knowledge/pixi.js' },
+          ]
+        },
       ],
       // 解决方案
       '/solution/': [
