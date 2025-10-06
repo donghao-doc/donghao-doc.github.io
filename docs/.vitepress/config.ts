@@ -19,6 +19,13 @@ export default defineConfig({
         { text: 'Git', link: '/knowledge/git' },
         { text: '微信生态', link: '/knowledge/wechat' },
         {
+          text: '工程化',
+          collapsed: false,
+          items: [
+            { text: 'package.json', link: '/knowledge/package.json' },
+          ]
+        },
+        {
           text: '三方库',
           collapsed: false,
           items: [
