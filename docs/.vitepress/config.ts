@@ -9,6 +9,7 @@ export default defineConfig({
     nav: [
       { text: 'Home', link: '/' },
       { text: '解决方案', link: '/solution/wechat-scan-login' },
+      { text: '作品集', link: '/project/fastgen' },
     ],
 
     sidebar: {
@@ -16,6 +17,10 @@ export default defineConfig({
       '/solution/': [
         { text: '微信扫码登录', link: '/solution/wechat-scan-login' },
       ],
+      // 作品集
+      '/project/': [
+        { text: 'FastGen', link: '/project/fastgen' },
+      ]
     },
 
     socialLinks: [
