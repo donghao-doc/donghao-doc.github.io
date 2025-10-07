@@ -17,6 +17,7 @@ export default defineConfig({
     sidebar: {
       // 知识库
       '/knowledge/': [
+        { text: 'TypeScript', link: '/knowledge/typescript' },
         { text: 'Git', link: '/knowledge/git' },
         { text: '微信生态', link: '/knowledge/wechat' },
         {
