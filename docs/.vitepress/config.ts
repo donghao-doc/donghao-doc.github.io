@@ -21,6 +21,13 @@ export default defineConfig({
         { text: 'Git', link: '/knowledge/git' },
         { text: '微信生态', link: '/knowledge/wechat' },
         {
+          text: 'Vue',
+          collapsed: false,
+          items: [
+            { text: '组件通信', link: '/knowledge/vue-communicate' },
+          ]
+        },
+        {
           text: '工程化',
           collapsed: false,
           items: [
