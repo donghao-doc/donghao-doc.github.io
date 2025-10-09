@@ -25,6 +25,7 @@ export default defineConfig({
           collapsed: false,
           items: [
             { text: '组件通信', link: '/knowledge/vue-communicate' },
+            { text: '其他', link: '/knowledge/vue-other' },
           ]
         },
         {
