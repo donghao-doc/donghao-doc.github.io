@@ -1,7 +1,8 @@
 import { defineConfig } from 'vitepress'
+import { withMermaid } from 'vitepress-plugin-mermaid'
 
 // https://vitepress.dev/reference/site-config
-export default defineConfig({
+export default withMermaid(defineConfig({
   title: `Barry's Docs`,
   description: '我的前端知识库',
   cleanUrls: true,
@@ -63,5 +64,12 @@ export default defineConfig({
       provider: 'local'
     },
     lastUpdated: true
-  }
-})
+  },
+  mermaid: {
+    securityLevel: 'loose',
+    startOnLoad: false,
+  },
+  mermaidPlugin: {
+    class: 'mermaid',
+  },
+}))
