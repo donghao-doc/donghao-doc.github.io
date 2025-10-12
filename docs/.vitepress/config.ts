@@ -47,6 +47,7 @@ export default defineConfig({
       '/solution/': [
         { text: '微信扫码登录', link: '/solution/wechat-scan-login' },
         { text: '长列表虚拟滚动', link: '/solution/virtual-scroll' },
+        { text: '单点登录', link: '/solution/single-sign-on' },
       ],
       // 作品集
       '/project/': [
