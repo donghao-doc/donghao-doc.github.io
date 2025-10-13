@@ -21,6 +21,7 @@ export default withMermaid(defineConfig({
         { text: 'TypeScript', link: '/knowledge/typescript' },
         { text: 'Git', link: '/knowledge/git' },
         { text: '微信生态', link: '/knowledge/wechat' },
+        { text: 'HTTP', link: '/knowledge/http' },
         {
           text: 'Vue',
           collapsed: false,
