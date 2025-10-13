@@ -15,11 +15,10 @@ hero:
       link: /api-examples
 
 features:
-  - title: Feature A
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature B
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature C
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+  - title: 实用主义
+    details: 聚焦实际需求，解决真实痛点。
+  - title: 核心重点
+    details: 关注重点内容，贴合工作场景。
+  - title: 简洁易懂
+    details: 语言直白，结构清晰，拒绝复杂冗余。
 ---
-
