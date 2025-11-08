@@ -7,8 +7,18 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": ["服务器", "MySQL", "Node.js", "Express", "Vue", "React"],
+  "keywords": [
+    "服务器",
+    "MySQL",
+    "Node.js",
+    "Express",
+    "Vue",
+    "React"
+  ],
   "author": "BarryDong",
   "license": "ISC",
-  "packageManager": "pnpm@10.18.1"
+  "packageManager": "pnpm@10.18.1",
+  "devDependencies": {
+    "vitepress": "2.0.0-alpha.12"
+  }
 }
