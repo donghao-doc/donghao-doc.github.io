@@ -10,12 +10,17 @@ export default defineConfig({
     nav: [
       { text: 'Home', link: '/' },
       { text: '知识库', link: '/knowledge/server-deploy' },
+      { text: '解决方案', link: '/solution/cors' },
     ],
 
     sidebar: {
       // 知识库
       '/knowledge/': [
         { text: '服务器项目部署', link: '/knowledge/server-deploy' },
+      ],
+      // 解决方案
+      '/solution/': [
+        { text: '跨域', link: '/solution/cors' },
       ],
     },
 
