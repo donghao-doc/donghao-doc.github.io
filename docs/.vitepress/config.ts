@@ -18,6 +18,7 @@ export default defineConfig({
       // 知识库
       '/knowledge/': [
         { text: '服务器项目部署', link: '/knowledge/server-deploy' },
+        { text: 'PixiJS', link: '/knowledge/pixi.js' },
       ],
       // 解决方案
       '/solution/': [
