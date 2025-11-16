@@ -11,6 +11,7 @@ export default defineConfig({
       { text: 'Home', link: '/' },
       { text: '知识库', link: '/knowledge/server-deploy' },
       { text: '解决方案', link: '/solution/cors' },
+      { text: '作品集', link: '/project/fastgen' },
     ],
 
     sidebar: {
@@ -22,6 +23,10 @@ export default defineConfig({
       '/solution/': [
         { text: '跨域', link: '/solution/cors' },
       ],
+      // 作品集
+      '/project/': [
+        { text: 'FastGen', link: '/project/fastgen' },
+      ]
     },
 
     socialLinks: [
