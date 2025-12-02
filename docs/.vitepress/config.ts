@@ -19,6 +19,7 @@ export default defineConfig({
       '/knowledge/': [
         { text: '服务器项目部署', link: '/knowledge/server-deploy' },
         { text: 'PixiJS', link: '/knowledge/pixi.js' },
+        { text: 'Promise', link: '/knowledge/promise' },
         { text: 'Vite', link: '/knowledge/vite' },
       ],
       // 解决方案
