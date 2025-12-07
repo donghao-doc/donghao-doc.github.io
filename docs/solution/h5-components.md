@@ -1,5 +1,7 @@
 # 从 0 搭建 H5 业务组件库
 
+[GitHub](https://github.com/donghao-doc/h5-components-mkt)
+
 ## 初始化项目
 
 创建项目，项目名称如 h5-components-mkt。
