@@ -1,7 +1,8 @@
 import { defineConfig } from 'vitepress'
+import { withMermaid } from 'vitepress-plugin-mermaid'
 
 // https://vitepress.dev/reference/site-config
-export default defineConfig({
+export default withMermaid(defineConfig({
   title: "Barry's Docs",
   description: "我的全栈知识库",
   cleanUrls: true,
@@ -28,6 +29,7 @@ export default defineConfig({
         { text: 'H5 业务组件库', link: '/solution/h5-components' },
         { text: '主题切换', link: '/solution/themes-switch' },
         { text: '移动端适配', link: '/solution/mobile' },
+        { text: '单点登录', link: '/solution/single-sign-on' },
       ],
       // 作品集
       '/project/': [
@@ -44,4 +46,4 @@ export default defineConfig({
     },
     lastUpdated: true
   }
-})
+}))
