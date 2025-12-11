@@ -27,6 +27,7 @@ export default defineConfig({
         { text: '跨域', link: '/solution/cors' },
         { text: 'H5 业务组件库', link: '/solution/h5-components' },
         { text: '主题切换', link: '/solution/themes-switch' },
+        { text: '移动端适配', link: '/solution/mobile' },
       ],
       // 作品集
       '/project/': [
