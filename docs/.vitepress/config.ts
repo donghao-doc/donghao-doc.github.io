@@ -30,6 +30,7 @@ export default withMermaid(defineConfig({
         { text: '主题切换', link: '/solution/themes-switch' },
         { text: '移动端适配', link: '/solution/mobile' },
         { text: '单点登录', link: '/solution/single-sign-on' },
+        { text: '微信扫码登录', link: '/solution/wechat-scan-login' },
       ],
       // 作品集
       '/project/': [
