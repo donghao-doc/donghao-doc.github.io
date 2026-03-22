@@ -1,0 +1,77 @@
+:root,
+:root[data-theme='dark'] {
+  color-scheme: dark;
+
+  // 基础色板：深海军蓝与薄荷绿
+  --color-dark-navy: #020c1b;
+  --color-navy: #0a192f;
+  --color-light-navy: #112240;
+  --color-lightest-navy: #233554;
+  --color-navy-shadow: rgba(2, 12, 27, 0.7);
+  --color-dark-slate: #495670;
+  --color-slate: #8892b0;
+  --color-light-slate: #a8b2d1;
+  --color-lightest-slate: #ccd6f6;
+  --color-white: #e6f1ff;
+  --color-green: #64ffda;
+  --color-green-soft: rgba(100, 255, 218, 0.1);
+  --color-green-strong: rgba(100, 255, 218, 0.18);
+
+  // 语义颜色：后续主题切换优先覆盖这一层
+  --bg: var(--color-navy);
+  --bg-deep: var(--color-dark-navy);
+  --bg-elevated: var(--color-light-navy);
+  --bg-raised: var(--color-lightest-navy);
+  --bg-overlay: rgba(10, 25, 47, 0.86);
+
+  --text-primary: var(--color-lightest-slate);
+  --text-secondary: var(--color-light-slate);
+  --text-muted: var(--color-slate);
+  --text-subtle: var(--color-dark-slate);
+  --text-inverse: var(--color-dark-navy);
+
+  --border-strong: rgba(168, 178, 209, 0.22);
+  --border-subtle: rgba(168, 178, 209, 0.12);
+  --border-accent: var(--color-green);
+
+  --accent: var(--color-green);
+  --accent-soft: var(--color-green-soft);
+  --accent-strong: var(--color-green-strong);
+
+  --surface-card: rgba(17, 34, 64, 0.9);
+  --surface-panel: rgba(10, 25, 47, 0.72);
+  --surface-highlight: rgba(35, 53, 84, 0.65);
+
+  --shadow-strong: 0 18px 48px -24px var(--color-navy-shadow);
+  --shadow-floating: 0 24px 60px -28px rgba(2, 12, 27, 0.85);
+  --focus-ring: 0 0 0 3px rgba(100, 255, 218, 0.28);
+
+  // 字体系统：正文与辅助信息分层，mono 主要用于技术感细节
+  --font-sans: 'Calibre', 'Avenir Next', 'Helvetica Neue', 'PingFang SC', 'Microsoft YaHei',
+    sans-serif;
+  --font-mono: 'SF Mono', 'JetBrains Mono', 'Fira Code', 'Roboto Mono', 'Source Code Pro',
+    monospace;
+
+  --fz-2xs: 12px;
+  --fz-xs: 13px;
+  --fz-sm: 14px;
+  --fz-md: 16px;
+  --fz-lg: 18px;
+  --fz-xl: 20px;
+  --fz-2xl: 24px;
+  --fz-3xl: 32px;
+  --fz-4xl: clamp(40px, 8vw, 72px);
+
+  // 布局尺度：为首页大留白和内容宽度预留统一控制点
+  --content-width: 1120px;
+  --content-narrow: 720px;
+  --nav-height: 88px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+
+  // 动效变量：后续组件统一使用，避免各处散落硬编码
+  --easing-standard: cubic-bezier(0.645, 0.045, 0.355, 1);
+  --transition-base: 220ms var(--easing-standard);
+  --transition-slow: 320ms var(--easing-standard);
+}
