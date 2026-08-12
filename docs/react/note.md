@@ -36,3 +36,18 @@ function UserCard() {
   );
 }
 ```
+
+## Fragment
+
+```jsx
+function UserInfo() {
+  return (
+    <>
+      <h2>小明</h2>
+      <p>年龄：10 岁</p>
+    </>
+  );
+}
+```
+
+这个空标签（`<>...</>`）是 Fragment 的简写形式。它可以包裹多个元素，但不会在 HTML 结构中生成额外节点。
