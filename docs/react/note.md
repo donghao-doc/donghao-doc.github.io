@@ -51,3 +51,48 @@ function UserInfo() {
 ```
 
 这个空标签（`<>...</>`）是 Fragment 的简写形式。它可以包裹多个元素，但不会在 HTML 结构中生成额外节点。
+
+## 组件
+
+类组件已经过时，现在推荐使用**函数组件 + Hooks**。
+
+### 函数组件
+
+函数组件的组件名首字母必须⼤写，且必须返回 JSX。
+
+```jsx
+function Welcome() {
+  return <h2>欢迎学习 React</h2>;
+}
+```
+
+### props
+
+`props` 是一个对象，用于接收组件外部传入的数据。
+
+:::warning
+单向数据流：`props` 是只读的，组件内部不能直接修改。如果要修改，应调用父组件传入的函数，由父组件更新数据。
+:::
+
+```jsx
+import { useState } from "react";
+
+// 实际开发中通常会直接解构 props
+function Counter({ count, onIncrease }) {
+  return (
+    <button onClick={onIncrease}>
+      数量：{count}
+    </button>
+  );
+}
+
+function App() {
+  const [count, setCount] = useState(0);
+
+  function handleIncrease() {
+    setCount(count + 1);
+  }
+
+  return <Counter count={count} onIncrease={handleIncrease} />;
+}
+```
