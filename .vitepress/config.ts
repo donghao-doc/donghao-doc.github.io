@@ -10,18 +10,28 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'Home', link: '/' },
-      { text: 'Examples', link: '/markdown-examples' }
+      {
+        text: '前端',
+        items: [
+          { text: 'React', link: '/react/note' },
+        ]
+      },
     ],
 
-    sidebar: [
-      {
-        text: 'Examples',
-        items: [
-          { text: 'Markdown Examples', link: '/markdown-examples' },
-          { text: 'Runtime API Examples', link: '/api-examples' }
-        ]
-      }
-    ],
+    // sidebar: [
+    //   {
+    //     text: 'Examples',
+    //     items: [
+    //       { text: 'Markdown Examples', link: '/markdown-examples' },
+    //       { text: 'Runtime API Examples', link: '/api-examples' }
+    //     ]
+    //   }
+    // ],
+    sidebar: {
+      '/react/': [
+        { text: '笔记', link: '/react/note' },
+      ],
+    },
 
     socialLinks: [
       { icon: 'github', link: 'https://github.com/donghao-doc/donghao-doc.github.io' }
