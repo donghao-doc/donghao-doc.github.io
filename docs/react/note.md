@@ -96,3 +96,56 @@ function App() {
   return <Counter count={count} onIncrease={handleIncrease} />;
 }
 ```
+
+### 传入 JSX 元素
+
+函数组件可以通过 `props.children` 或具名 `props` 传入 JSX 元素。
+
+:::code-group
+
+```jsx [props.children]
+function Card(props) {
+  return (
+    <div className="card">
+      {props.children}
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <Card>
+      <h2>学习计划</h2>
+      <p>每天学习 React 30 分钟。</p>
+    </Card>
+  );
+}
+```
+
+```jsx [具名 props]
+function Card(props) {
+  return (
+    <div className="card">
+      <header>{props.title}</header>
+      <main>{props.content}</main>
+      <footer>{props.footer}</footer>
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <Card
+      title={<h2>学习计划</h2>}
+      content={<p>每天学习 React 30 分钟。</p>}
+      footer={<button>查看详情</button>}
+    />
+  );
+}
+```
+
+:::
+
+:::warning
+不建议通过索引来使用 `props.children`，一是因为语义不明显，二是因为内容顺序变化后容易出错。
+:::
