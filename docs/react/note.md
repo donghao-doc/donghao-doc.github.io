@@ -68,7 +68,7 @@ function Welcome() {
 
 ### props
 
-`props` 是一个对象，用于接收组件外部传入的数据。
+函数组件接收一个 `props` 对象，用于接收组件外部传入的数据。
 
 :::warning
 单向数据流：`props` 是只读的，组件内部不能直接修改。如果要修改，应调用父组件传入的函数，由父组件更新数据。
@@ -148,4 +148,165 @@ function App() {
 
 :::warning
 不建议通过索引来使用 `props.children`，一是因为语义不明显，二是因为内容顺序变化后容易出错。
+:::
+
+## 组件状态
+
+### useState
+
+`useState` 用于在函数组件中定义状态，它接收初始值作为参数，返回当前状态和修改状态的方法。
+
+:::tip
+当 `state` 更新时，组件会重新渲染以更新⻚⾯。
+:::
+
+```jsx
+import { useState } from "react";
+
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  function handleIncrease() {
+    setCount(count + 1);
+  }
+
+  return (
+    <button onClick={handleIncrease}>
+      数量：{count}
+    </button>
+  );
+}
+```
+
+### 状态的更新是异步的
+
+`useState` 返回的更新状态的⽅法是异步的，要在下次重绘才能获取新值。
+
+```jsx
+const [count, setCount] = useState(0);
+
+function handleIncrease() {
+  setCount(count + 1);
+
+  // 仍然获取到旧值
+  console.log(count);
+}
+```
+
+### 状态的批量更新
+
+React 会对同一个事件处理函数中的多个状态更新进行批量处理。
+
+```jsx
+const [count, setCount] = useState(0);
+
+function handleIncrease() {
+  setCount(count + 1);
+  setCount(count + 1);
+  setCount(count + 1);
+}
+```
+
+以上代码，三次更新获取到的 `count` 都是 `0`，相当于执行了三次 `setCount(0 + 1)`，所以最终 `count` 的值为 `1`，而不是 `3`。
+
+如果要根据上一次更新结果继续计算，可以向 `setState()` 传入一个更新函数。
+
+```jsx
+const [count, setCount] = useState(0);
+
+function handleIncrease() {
+  // prevCount 为上一次更新后的状态
+  setCount((prevCount) => prevCount + 1);
+  setCount((prevCount) => prevCount + 1);
+  setCount((prevCount) => prevCount + 1);
+}
+```
+
+React 会按顺序处理这些更新函数，并将上一次计算结果传给下一次，因此 `count` 最终是 `3`。
+
+这并不是取消了批量更新，而是在批量更新中正确地基于前一次状态计算新状态。
+
+### 修改数组和对象
+
+数组和对象不能直接修改原数据，应通过 `setState` 设置新数组或新对象。
+
+```jsx
+const [users, setUsers] = useState(["小明"]);
+const [profile, setProfile] = useState({
+  name: "小红",
+  age: 10,
+});
+
+function handleUpdate() {
+  // 使用新数组替换原数组
+  setUsers([...users, "小刚"]);
+
+  // 使用新对象替换原对象
+  setProfile({
+    ...profile,
+    age: 11,
+  });
+}
+```
+
+### useState 的调用规则
+
+`useState` 必须在函数组件或自定义 Hook 的**顶层**调用，不能放在条件判断、循环语句、嵌套函数中，因为 React 会按照 Hook 的**调用顺序**来保存和读取状态。
+
+假设第一次渲染时，Hook 的调用顺序是：
+
+```text
+第 1 个 Hook：name
+第 2 个 Hook：age
+第 3 个 Hook：gender
+```
+
+如果下一次渲染时，Hook 的调用顺序不一致：
+
+```text
+第 1 个 Hook：name
+第 2 个 Hook：gender
+```
+
+那么 React 就无法正确匹配状态。
+
+:::code-group
+
+```jsx [错误写法]
+function UserInfo({ showAge }) {
+  const [name, setName] = useState("小明");
+
+  if (showAge) {
+    // 条件变化时，这个 Hook 可能不会执行
+    const [age, setAge] = useState(18);
+  }
+
+  const [gender, setGender] = useState("男");
+
+  return <p>{name}</p>;
+}
+```
+
+```jsx [正确写法]
+function UserInfo({ showAge }) {
+  // 所有 Hook 都在组件顶层调用
+  const [name, setName] = useState("小明");
+  const [age, setAge] = useState(18);
+  const [gender, setGender] = useState("男");
+
+  return (
+    <div>
+      <p>姓名：{name}</p>
+      {/* 通过条件控制内容是否显示 */}
+      {showAge && <p>年龄：{age}</p>}
+      <p>性别：{gender}</p>
+    </div>
+  );
+}
+```
+
+:::
+
+:::tip
+可以简单记为：**组件每次渲染时，Hook 都必须以相同的顺序和数量执行。**
 :::
