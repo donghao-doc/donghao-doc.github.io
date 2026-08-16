@@ -310,3 +310,60 @@ function UserInfo({ showAge }) {
 :::tip
 可以简单记为：**组件每次渲染时，Hook 都必须以相同的顺序和数量执行。**
 :::
+
+## 条件渲染
+
+可以通过 `if` 语句、`&&` 和三元运算符来选择性地渲染 JSX。
+
+如果要在条件不成⽴时什么都不展示，可以返回 `null`。
+
+```jsx
+function UserPanel(props) {
+  // 使用 if...else
+  if (props.isVisible) {
+    return (
+      <div>
+        {/* 使用 && */}
+        {props.hasMessage && <p>你有一条新消息</p>}
+
+        {/* 使用三元运算符 */}
+        <button>
+          {props.isLoggedIn ? "退出登录" : "立即登录"}
+        </button>
+      </div>
+    );
+  } else {
+    // 条件不成立时，不渲染任何内容
+    return null;
+  }
+}
+```
+
+## 列表渲染
+
+使用数组的 `map()` 方法，将数组中的每一项转换成 JSX。
+
+```jsx
+function Week() {
+  const days = [
+    { id: 1, name: "星期一" },
+    { id: 2, name: "星期二" },
+    { id: 3, name: "星期三" },
+  ];
+  
+  const listItems = days.map((day) => (
+    <li key={day.id}>{day.name}</li>
+  ));
+
+  return <ul>{listItems}</ul>;
+}
+```
+
+### key 的作用
+
+`key` 用于给列表中的每⼀项做标记，当列表发生新增、删除或排序时，React 会根据 `key` 只更新变化的部分，不变的部分就不更新。
+
+:::tip
+- `key` 要在列表中是唯一的，通常使用 `id` 作为 `key`，不要⽤数组索引、随机数作为 `key`。
+- 如果列表内容固定，不会新增、删除或排序时，也可以使用索引作为 `key`。
+:::
