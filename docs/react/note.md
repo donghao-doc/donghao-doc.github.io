@@ -367,3 +367,81 @@ function Week() {
 - `key` 要在列表中是唯一的，通常使用 `id` 作为 `key`，不要⽤数组索引、随机数作为 `key`。
 - 如果列表内容固定，不会新增、删除或排序时，也可以使用索引作为 `key`。
 :::
+
+## Hooks
+
+### useRef
+
+通过 ref 可以获取 DOM 元素或组件实例，从而操作 DOM 元素或访问组件中的数据和方法。
+
+由于函数组件没有实例，所以函数组件不能使⽤ ref，但函数组件可以使用 `useRef`。
+
+`useRef` 用于在函数组件中创建⼀个引⽤（ref）对象。
+
+#### useRef 常见用途
+
+- **访问 DOM 元素**：⽐如获取输⼊框的值、输入框聚焦、测量 DOM 元素尺⼨等。
+- **保存可变数据**：保存一个值，并且修改这个值时不会触发组件重新渲染。
+
+:::code-group
+
+```jsx [访问 DOM 元素]
+import { useRef } from "react";
+
+function App() {
+  const inputRef = useRef(null);
+
+  function handleFocus() {
+    // inputRef.current 指向真实的 <input> DOM 元素
+    inputRef.current.focus();
+  }
+
+  return (
+    <div>
+      <input ref={inputRef} />
+      <button onClick={handleFocus}>获取焦点</button>
+    </div>
+  );
+}
+```
+
+```jsx [保存可变数据]
+import { useRef } from "react";
+
+function Counter() {
+  const countRef = useRef(0);
+
+  function handleIncrease() {
+    // 修改 countRef.current，不会触发组件重新渲染
+    countRef.current += 1;
+  }
+
+  return (
+    <>
+      {/* 所以页面不会随着点击进行更新 */}
+      <p>{countRef.current}</p>
+      <button onClick={handleIncrease}>+1</button>
+    </>
+  )
+}
+```
+
+:::
+
+#### useRef 特性
+
+- **持久性**：`useRef` 创建的 ref 对象在组件的整个⽣命周期中都是持久的，React 会保留同一个 ref 对象直到组件卸载，也不会在组件每次渲染时创建新的 ref 对象。
+- **不会触发重新渲染**：`useState` 的状态改变时，组件会重新渲染；⽽ `useRef` 的 `.current` 属性改变时，组件不会重新渲染。
+
+:::tip
+`useRef` 适合保存“只需要记住数据的变化，但不需要更新页面”的数据。
+:::
+
+#### useRef 和 createRef 的区别
+
+- `createRef` 在组件每次渲染时都会重新创建 ref 对象。
+- `useRef` 只会在组件⾸次渲染时创建 ref 对象，后续多次更新渲染时会保持同一个 ref 对象。
+
+:::tip
+函数组件推荐使用 `useRef`，`createRef` 主要用于类组件。
+:::
