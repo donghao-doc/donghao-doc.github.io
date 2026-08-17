@@ -368,6 +368,35 @@ function Week() {
 - 如果列表内容固定，不会新增、删除或排序时，也可以使用索引作为 `key`。
 :::
 
+## StrictMode
+
+`StrictMode` 用于辅助开发过程中发现组件中的一些问题。
+
+`StrictMode` 的作⽤：
+
+- **识别一些不安全的生命周期**，比如 `UNSAFE_componentWillMount`、`UNSAFE_componentWillReceiveProps`、`UNSAFE_componentWillUpdate` 等旧版本类组件生命周期。
+- **检测意外的副作用**，比如修改了 `props` 数据、`useEffect` 缺少清理函数等。
+- **检测过时的 API**，比如旧版本生命周期 API 等。
+
+通常在项目入口 `main.tsx` 中包裹根组件：
+
+```tsx
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import App from './App.tsx'
+
+createRoot(document.getElementById('root')!).render(
+  <StrictMode>
+    <App />
+  </StrictMode>,
+)
+```
+
+:::tip
+- `StrictMode` 只在**开发环境**中执行额外检查，不会影响生产环境。
+- 启用 `StrictMode` 后，开发环境中有的日志可能会打印两次，因为 React 会额外渲染一次组件，检查渲染过程是否包含副作用，但生产环境不会因此额外渲染。
+:::
+
 ## Hooks
 
 ### useRef
