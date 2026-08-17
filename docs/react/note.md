@@ -397,6 +397,67 @@ createRoot(document.getElementById('root')!).render(
 - 启用 `StrictMode` 后，开发环境中有的日志可能会打印两次，因为 React 会额外渲染一次组件，检查渲染过程是否包含副作用，但生产环境不会因此额外渲染。
 :::
 
+## 样式模块化
+
+### .module.css
+
+将样式⽂件命名为 `xxx.module.css` 即可。
+
+CSS Modules 会创建 `[filename]_[classname]__[hash]` 格式的唯⼀类名，让样式只作用于当前组件，避免不同组件之间的类名冲突，导致样式污染。
+
+```jsx
+import styles from "./card.module.css";
+
+function Card() {
+  return (
+    <div className={styles.card}>
+      <h2 className={styles.title}>学习计划</h2>
+      <p>每天学习 React 30 分钟。</p>
+    </div>
+  );
+}
+```
+
+### 预处理器
+
+可以创建 `.scss` 文件，如果要同时使用 CSS Modules，也可以将文件命名为 `xxx.module.scss`。
+
+:::code-group
+
+```jsx [Card.jsx]
+import "./Card.scss";
+
+function Card() {
+  return (
+    <div className="card">
+      <h2 className="title">学习计划</h2>
+      <p>每天学习 React 30 分钟。</p>
+    </div>
+  );
+}
+```
+
+```scss [Card.scss]
+$primary-color: #4f46e5;
+
+.card {
+  padding: 16px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+
+  .title {
+    color: $primary-color;
+    font-size: 20px;
+  }
+
+  &:hover {
+    box-shadow: 0 4px 12px rgb(0 0 0 / 10%);
+  }
+}
+```
+
+:::
+
 ## Hooks
 
 ### useRef
