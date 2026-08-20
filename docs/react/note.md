@@ -774,6 +774,50 @@ function GrandChild() {
 
 `useContext` 可以读取 Context 的值以及订阅 Context 的变化，当 Context 中的值发生变化，读取该 Context 的组件也会重新渲染。
 
+## 高阶组件（HOC）
+
+高阶组件是 React 中用于**组件逻辑复用**的一种方式，它本质上是一个函数，接收一个组件，为组件增加公共逻辑（增强组件功能），返回处理后的新组件。
+
+常见可复用的逻辑：权限判断、登录状态处理、公共行为封装等。
+
+HOC 基本规则：
+
+- HOC 应当是纯函数，⽆副作⽤。
+- 不要在 HOC 内部修改原组件，⽽是要返回⼀个新组件。
+- HOC 的命名通常以 `with` 开头，表示它是为组件提供附加功能的，例如 `withAuth`、`withLoading`。
+- HOC 主要负责增强组件功能，而不是直接负责 UI 渲染。
+
+```jsx
+function withPermission(Component) {
+  return function NewComponent(props) {
+    const canEdit = props.role === "admin";
+
+    // HOC 只增强功能：注入 canEdit
+    return <Component {...props} canEdit={canEdit} />;
+  };
+}
+
+function UserPanel(props) {
+  return (
+    <div>
+      <h2>{props.name}</h2>
+      {props.canEdit && <button>编辑资料</button>}
+    </div>
+  );
+}
+
+const UserPanelWithPermission = withPermission(UserPanel);
+
+function App() {
+  return (
+    <UserPanelWithPermission
+      name="小明"
+      role="admin"
+    />
+  );
+}
+```
+
 ## Hooks
 
 ### useRef
