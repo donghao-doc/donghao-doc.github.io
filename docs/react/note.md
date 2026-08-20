@@ -727,6 +727,53 @@ useMemo     → 优化组件内部的计算结果
 `useMemo` 主要适合缓存**计算开销较大的结果**，如果计算非常简单，通常没必要使用 `useMemo`。
 :::
 
+## Context
+
+`Context` 用于在组件树中共享数据，以避免数据在多层组件中使用 `props` 层层传递。
+
+:::code-group
+
+```jsx [1. 创建 Context]
+import { createContext } from "react";
+
+const UserContext = createContext("");
+
+// 也可以设置默认值
+// const UserContext = createContext("默认用户");
+
+export default UserContext;
+```
+
+```jsx [2. 上层组件提供 Context 数据]
+import UserContext from "./UserContext";
+import Child from "./Child";
+
+function App() {
+  const name = "小明";
+
+  return (
+    <UserContext.Provider value={name}>
+      <Child />
+    </UserContext.Provider>
+  );
+}
+```
+
+```jsx [3. 使用 useContext 获取数据]
+import { useContext } from "react";
+import UserContext from "./UserContext";
+
+function GrandChild() {
+  const name = useContext(UserContext);
+
+  return <p>当前用户：{name}</p>;
+}
+```
+
+:::
+
+`useContext` 可以读取 Context 的值以及订阅 Context 的变化，当 Context 中的值发生变化，读取该 Context 的组件也会重新渲染。
+
 ## Hooks
 
 ### useRef
