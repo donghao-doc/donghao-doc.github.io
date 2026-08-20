@@ -818,6 +818,50 @@ function App() {
 }
 ```
 
+## 跨域代理
+
+如果前端直接请求其他域名的接口，浏览器可能会产生跨域问题。
+
+解决方案：在项目根目录的 `vite.config.js` 中为本地开发服务器配置 `proxy`，将前端请求转发到目标服务器。
+
+```js
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+
+export default defineConfig({
+  plugins: [react()],
+
+  server: {
+    proxy: {
+      // /api：需要代理的请求前缀
+      "/api": {
+        // target：真正的后端服务器地址
+        target: "https://api.example.com",
+        // changeOrigin：是否把请求头中的 Host 修改为目标服务器的地址
+        changeOrigin: true,
+        // rewrite：重写请求路径，这里会删除开头的 /api
+        rewrite: (path) => path.replace(/^\/api/, ""),
+      },
+
+      // 也可以配置多个代理
+      "/user-api": {
+        target: "https://user.example.com",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/user-api/, ""),
+      },
+    },
+  },
+});
+```
+
+这样一来，前端代码中的请求路径就可以写成 `/api/recipe/search` 形式。
+
+前端的请求会发送到本地开发服务器，由本地开发服务器再转发到真正的后端服务器。
+
+:::tip
+Vite 的 `server.proxy` **只作用于本地开发环境**，项目部署后通常使用 Nginx 配置反向代理。
+:::
+
 ## Hooks
 
 ### useRef
