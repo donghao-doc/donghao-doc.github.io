@@ -458,6 +458,275 @@ $primary-color: #4f46e5;
 
 :::
 
+## 组件的生命周期
+
+生命周期主要可以分为初始化阶段（初次挂载）、更新阶段、卸载阶段，每个阶段都有对应的钩子函数。
+
+### 类组件
+
+:::code-group
+
+```text [初始化阶段]
+constructor() -> render() -> componentDidMount()
+```
+
+```text [更新阶段]
+// 组件内部调用 setState() 触发
+shouldComponentUpdate() -> render() -> componentDidUpdate()
+
+// 组件内部调用 forceUpdate() 触发
+render() -> componentDidUpdate()
+
+// 父组件重新 render 触发
+getDerivedStateFromProps ->
+shouldComponentUpdate() -> render() -> componentDidUpdate()
+```
+
+```text [卸载阶段]
+componentWillUnmount()
+```
+
+:::
+
+### shouldComponentUpdate
+
+`shouldComponentUpdate` 返回一个布尔值，来决定组件是否需要更新。如果返回 `false`，组件就不会更新。
+
+`shouldComponentUpdate` 接收两个参数：`nextProps` 和 `nextState`，分别表示组件即将接收到的新属性和新状态。可以在这个钩子函数中比较组件当前的属性和状态和即将接收的新的属性和状态，返回一个布尔值，来决定是否要更新组件。
+
+```jsx
+import { Component } from "react";
+
+class Counter extends Component {
+  state = {
+    count: 0,
+  };
+
+  shouldComponentUpdate(nextProps, nextState) {
+    // 比较新的 count 和当前的 count，发生变化时才重新渲染
+    return nextState.count !== this.state.count;
+  }
+
+  handleIncrease = () => {
+    this.setState({
+      count: this.state.count + 1,
+    });
+  };
+
+  render() {
+    return (
+      <button onClick={this.handleIncrease}>
+        数量：{this.state.count}
+      </button>
+    );
+  }
+}
+```
+
+现在一般不需要手动编写 `shouldComponentUpdate`：
+
+- 类组件：可以使用 `PureComponent`。
+- 函数组件：可以使用 `React.memo` 或 `useMemo`。
+
+### PureComponent
+
+`React.PureComponent` 与 `React.Component` 基本类似，区别在于：
+
+- `Component`：默认不会自动比较新旧 `props` 和 `state`，需要手动调用 `shouldComponentUpdate` 来控制组件是否更新。
+- `PureComponent`：自动对新旧 `props` 和 `state` 进行**浅比较**，没有变化时组件不会重新渲染。
+
+```jsx
+import { PureComponent } from "react";
+
+class User extends PureComponent {
+  render() {
+    // 当父组件重新渲染，但传进来的 name 没有变化，那么 User 组件不会重新渲染
+    return <p>姓名：{this.props.name}</p>;
+  }
+}
+```
+
+#### setState 的两个不合理之处
+
+1. `setState` ⽆论是否真的更新了 state，组件都会重新渲染。
+2. 如果⽗组件更新了，⽆论⼦组件有没有⽤到⽗组件的数据，子组件也都会重新渲染。
+
+解决方案：普通类组件可以使用 `shouldComponentUpdate` 来控制是否需要更新，而 `PureComponent` 会自动浅比较新旧 `props` 和 `state` 来决定是否需要更新。
+
+#### 浅比较
+
+`React.PureComponent` 只进行**浅层比较**。
+
+基本类型的数据可以直接比较，但对象和数组，比较的是**引用地址是否发生变化**，所以不能直接修改原对象或原数组，而是要创建新对象或数组，`PureComponent` 才能正确检测到更新。
+
+### 函数组件
+
+函数组件没有生命周期，但可以使用 `useEffect` Hook 来代替。
+
+### useEffect
+
+`useEffect` 用于在组件渲染后执行一些**副作用操作**，比如请求数据、添加事件监听、启动定时器等。
+
+#### 基本语法
+
+`useEffect` 接收两个参数：
+
+1. Effect 函数：需要执行的副作用代码。
+2. 依赖项数组：决定 Effect 函数什么时候执行。
+
+```jsx
+import { useEffect } from "react";
+
+useEffect(() => {
+  // 要执行的 Effect 代码
+  // 相当于 componentDidMount、componentDidUpdate
+  console.log('hello')
+
+  // return 是可选的，相当于 componentWillUnmount
+  // 用于清理副作用，如清除定时器、移除事件监听
+  return () => {
+    console.log('componentWillUnmount')
+  };
+}, [依赖项]);
+```
+
+#### 执行时机
+
+默认情况下，任何数据的变化都会导致 `useEffect` 重新执行（如果数据改变前后值⼀样，那么就不会执行）。
+
+| 写法                             | 执行时机                                     |
+|--------------------------------|------------------------------------------|
+| 不传依赖数组：`useEffect(fn)`         | 组件每次渲染后都会执行                              |
+| 传入空数组：`useEffect(fn, [])`      | 只在组件首次挂载后执行，常用于初始化操作，例如首次请求数据、添加全局事件监听等。 |
+| 指定依赖项：`useEffect(fn, [count])` | 首次挂载后执行，并在 `count` 变化后重新执行               |
+
+### React.memo
+
+函数组件本身没有识别 `props` 是否变化的能⼒，每次⽗组件更新都会给⼦组件传递⼀个新的 `props`，导致子组件跟着一起重新渲染。如果 `props` 没有发生变化，那么子组件的这种重新渲染是没有必要的。
+
+`React.memo` 用于缓存函数组件，它可以检查 `props` 是否发生变化。如果传递给子组件的 `props` 没有变化，那么父组件重新渲染时，子组件不会重新渲染。
+
+```jsx
+import { memo, useState } from "react";
+
+const Child = memo(function Child(props) {
+  return <p>子组件：{props.name}</p>;
+});
+
+function App() {
+  const [count, setCount] = useState(0);
+
+  function handleIncrease() {
+    setCount(count + 1);
+  }
+
+  return (
+    <div>
+      <p>父组件：{count}</p>
+      <button onClick={handleIncrease}>+1</button>
+      <Child name="小明" />
+    </div>
+  );
+}
+```
+
+:::tip
+`React.memo` 适合那些渲染开销大，并且经常因为父组件更新而导致无意义的重新渲染的组件，不需要给所有组件都加 `React.memo`。
+:::
+
+### useMemo
+
+`useMemo` 用于**缓存函数的计算结果**或**缓存组件**。
+
+```jsx
+const value = useMemo(() => {
+  return 计算结果/组件;
+}, [依赖项]);
+```
+
+当组件重新渲染，若依赖项没有变化，就直接使用上一次缓存的结果，避免重复计算。
+
+`useMemo` 是同步的，不能执行副作用操作，⽐如⽹络请求、操作 DOM、添加事件监听等。
+
+:::code-group
+
+```jsx [缓存计算结果]
+import { useMemo, useState } from "react";
+
+function App() {
+  const [count, setCount] = useState(1);
+  const [price, setPrice] = useState(100);
+  const [color, setColor] = useState("红色");
+
+  const total = useMemo(() => {
+    return count * price;
+  }, [count, price]); // 只有当 count 或 price 改变，才会重新计算 total
+
+  function handleColor() {
+    // color 改变，组件重新渲染，但不会重新计算 total
+    setColor("蓝色");
+  }
+
+  return (
+    <div>
+      <p>总价：{total}</p>
+      <p>颜色：{color}</p>
+      <button onClick={handleColor}>修改颜色</button>
+    </div>
+  );
+}
+```
+
+```jsx [缓存组件]
+import { useMemo, useState } from "react";
+
+function Child(props) {
+  return <p>数量：{props.count}</p>;
+}
+
+function App() {
+  const [count, setCount] = useState(0);
+  const [color, setColor] = useState("红色");
+
+  const child = useMemo(() => {
+    return <Child count={count} />;
+  }, [count]); // 只有依赖项变化时，才会重新创建 Child 组件
+
+  function handleColor() {
+    // color 改变，App 组件重新渲染，但 child 继续使用缓存的组件
+    setColor("蓝色");
+  }
+
+  return (
+    <div>
+      <p>颜色：{color}</p>
+      <button onClick={handleColor}>修改颜色</button>
+      {child}
+    </div>
+  );
+}
+```
+
+:::
+
+#### useMemo 和 React.memo 的区别
+
+- `React.memo` 用于缓存组件，当 props 变化时，组件重新渲染。
+- `useMemo` 用于缓存函数的计算结果或组件，当依赖项变化时，重新计算结果或重新渲染组件。
+
+#### 使用场景
+
+`useMemo` 更主要用于缓存计算结果，缓存组件更推荐使用 `React.memo`。
+
+```text
+React.memo  → 优化组件
+useMemo     → 优化组件内部的计算结果
+```
+
+:::tip
+`useMemo` 主要适合缓存**计算开销较大的结果**，如果计算非常简单，通常没必要使用 `useMemo`。
+:::
+
 ## Hooks
 
 ### useRef
