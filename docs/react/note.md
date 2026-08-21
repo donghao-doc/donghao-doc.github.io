@@ -939,3 +939,68 @@ function Counter() {
 :::tip
 函数组件推荐使用 `useRef`，`createRef` 主要用于类组件。
 :::
+
+### useCallback
+
+`useCallback` 用于**缓存函数**，避免组件在每次渲染时都创建新的函数。
+
+```jsx
+const handleClick = useCallback(() => {
+  // 执行逻辑
+}, [依赖项]);
+```
+
+只有依赖项发生变化时，React 才会重新创建函数。如果依赖项不变，即使组件重新渲染，回调函数的引⽤也会保持不变。
+
+#### 为什么需要 useCallback
+
+函数组件每次重新渲染时，函数都会被重新创建，函数的引用地址被更新。如果函数通过 `props` 传给了子组件，即使子组件使用了 `React.memo` 进行缓存，但由于传入的函数引用地址发生变化，导致子组件仍然会重新渲染。
+
+:::tip
+`useCallback` 需要配合 `React.memo` 使⽤，因为如果组件⾃身不缓存，就算把函数缓存了，组件也还是会重新渲染。
+:::
+
+```jsx
+import { memo, useCallback, useState } from "react";
+
+const Child = memo(function Child(props) {
+  return <button onClick={props.onAdd}>+1</button>;
+});
+
+function App() {
+  const [count, setCount] = useState(0);
+  const [color, setColor] = useState("红色");
+
+  const handleAdd = useCallback(() => {
+    setCount((prevCount) => prevCount + 1);
+  }, []);
+
+  function handleColor() {
+    setColor("蓝色");
+  }
+
+  return (
+    <div>
+      <p>数量：{count}</p>
+      <p>颜色：{color}</p>
+
+      <Child onAdd={handleAdd} />
+
+      <button onClick={handleColor}>
+        修改颜色
+      </button>
+    </div>
+  );
+}
+```
+
+#### useCallback 与 useMemo
+
+`useCallback` 用于缓存函数引用，`useMemo` 用于缓存计算结果。
+
+```jsx
+useCallback(fn, deps);
+
+// 相当于
+useMemo(() => fn, deps);
+```
