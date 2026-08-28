@@ -1030,3 +1030,61 @@ useCallback(fn, deps);
 // 相当于
 useMemo(() => fn, deps);
 ```
+
+
+### 自定义 Hook
+
+自定义 Hook 用于把组件中的**状态逻辑提取出来并复用**。
+
+当多个组件需要使用相同的状态、Effect、事件处理等逻辑时，可以封装成自定义 Hook。
+
+#### 基本规则
+
+- 按照约定，自定义 Hook 的名称必须以 `use` 开头，如 `useFormInput`、`useUser`。
+- 自定义 Hook 内部可以使用 `useState`、`useEffect` 等其他 Hook。
+- 自定义 Hook 本身也是 Hook，所以同样要遵守 Hook 的调用规则：只能在组件或其他 Hook 的顶层调用，不能放在条件、循环等语句中。
+- 普通函数不能调用 Hook。
+
+#### 示例：封装输入框状态
+
+:::code-group
+
+```jsx [useFormInput.js]
+import { useState } from "react";
+
+function useFormInput(initialValue) {
+  const [value, setValue] = useState(initialValue);
+
+  function handleChange(event) {
+    setValue(event.target.value);
+  }
+
+  return {
+    value,
+    onChange: handleChange,
+  };
+}
+
+export default useFormInput;
+```
+
+```jsx [App.jsx]
+import useFormInput from "./useFormInput";
+
+function App() {
+  // 相当于创建了两套独立的输入框状态和修改逻辑，不需要重复写 useState 和 onChange
+  const username = useFormInput("");
+  const password = useFormInput("");
+
+  return (
+    <div>
+      <input {...username} placeholder="用户名" />
+      <input {...password} placeholder="密码" />
+
+      <p>用户名：{username.value}</p>
+    </div>
+  );
+}
+```
+
+:::
