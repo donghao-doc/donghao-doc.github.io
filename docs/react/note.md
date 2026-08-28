@@ -1032,6 +1032,123 @@ useMemo(() => fn, deps);
 ```
 
 
+### useImperativeHandle
+
+函数组件不⽀持 ref 属性，因为函数组件没有实例，所以不能通过获取组件实例的方式来访问子组件中的数据或方法。
+
+`useImperativeHandle` 结合 `forwardRef` 使⽤，用于让函数组件可以**通过 `ref` 向外暴露数据或方法**。
+
+常见场景：父组件需要访问子组件中的数据或方法，如让子组件输入框获取焦点、打开弹窗、重置表单等。
+
+#### 基本语法
+
+```jsx
+useImperativeHandle(ref, () => {
+  return {
+    // 暴露给父组件的方法或数据
+  };
+}, [依赖项]);
+```
+
+- `ref`：父组件传入的 `ref`。
+- 第二个参数：返回一个对象，对象中是向外暴露的方法或数据。
+- `[依赖项]`：依赖变化时，重新创建暴露的对象。
+
+#### forwardRef
+
+函数组件接收 `ref` 通常需要使用 `forwardRef`，`forwardRef` ⽤于转发引⽤（refs）。
+
+:::code-group
+
+```jsx [App.jsx]
+import { useRef } from "react";
+import Child from "./Child";
+
+function App() {
+  const childRef = useRef(null);
+
+  function handleClick() {
+    childRef.current.focus();
+  }
+
+  return (
+    <>
+      <Child ref={childRef} />
+      <button onClick={handleClick}>聚焦输入框</button>
+    </>
+  );
+}
+```
+
+```jsx [Child.jsx]
+import { forwardRef, useImperativeHandle, useRef } from "react";
+
+function Child(props, ref) {
+  const inputRef = useRef(null);
+
+  function focus() {
+    inputRef.current.focus();
+  }
+
+  useImperativeHandle(ref, () => ({
+    focus,
+  }));
+
+  return <input ref={inputRef} />;
+}
+
+export default forwardRef(Child);
+```
+
+:::
+
+React 19 中，函数组件可以直接通过 `props.ref` 接收 `ref`，通常不再需要 `forwardRef`。
+
+:::code-group
+
+```jsx [App.jsx]
+import { useRef } from "react";
+import Child from "./Child";
+
+function App() {
+  const childRef = useRef(null);
+
+  function handleFocus() {
+    // childRef.current 得到的不是子组件实例，而是子组件主动暴露的对象
+    childRef.current.focusInput();
+  }
+
+  return (
+    <div>
+      <Child ref={childRef} />
+      <button onClick={handleFocus}>
+        聚焦输入框
+      </button>
+    </div>
+  );
+}
+```
+
+```jsx [Child.jsx]
+import { useImperativeHandle, useRef } from "react";
+
+function Child(props) {
+  const inputRef = useRef(null);
+
+  function focusInput() {
+    inputRef.current.focus();
+  }
+
+  useImperativeHandle(props.ref, () => ({
+    focusInput,
+  }));
+
+  return <input ref={inputRef} />;
+}
+```
+
+:::
+
 ### 自定义 Hook
 
 自定义 Hook 用于把组件中的**状态逻辑提取出来并复用**。
