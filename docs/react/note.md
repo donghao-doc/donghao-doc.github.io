@@ -195,7 +195,7 @@ function handleIncrease() {
 
 ### 状态的批量更新
 
-React 会对同一个事件处理函数中的多个状态更新进行批量处理。
+React 会对同一个事件处理函数中的多个状态更新进行批量处理，而不是一个一个按顺序处理。
 
 ```jsx
 const [count, setCount] = useState(0);
@@ -209,7 +209,7 @@ function handleIncrease() {
 
 以上代码，三次更新获取到的 `count` 都是 `0`，相当于执行了三次 `setCount(0 + 1)`，所以最终 `count` 的值为 `1`，而不是 `3`。
 
-如果要根据上一次更新结果继续计算，可以向 `setState()` 传入一个更新函数。
+如果要根据上一次更新后的状态继续计算，可以向 `setState()` 传入一个更新函数。
 
 ```jsx
 const [count, setCount] = useState(0);
@@ -222,13 +222,13 @@ function handleIncrease() {
 }
 ```
 
-React 会按顺序处理这些更新函数，并将上一次计算结果传给下一次，因此 `count` 最终是 `3`。
+React 会按顺序处理这些更新函数，并将上一次更新后的状态传给下一次，因此 `count` 最终是 `3`。
 
-这并不是取消了批量更新，而是在批量更新中正确地基于前一次状态计算新状态。
+这并不是取消了批量更新，而是**在批量更新中正确地基于上一次更新后的状态来计算新状态**。
 
 ### 修改数组和对象
 
-数组和对象不能直接修改原数据，应通过 `setState` 设置新数组或新对象。
+数组和对象不能直接修改原数据（引用地址不变，React 监测不到数据更新），应通过 `setState` 设置新数组或新对象来整体替换。
 
 ```jsx
 const [users, setUsers] = useState(["小明"]);
@@ -406,6 +406,7 @@ createRoot(document.getElementById('root')!).render(
 CSS Modules 会创建 `[filename]_[classname]__[hash]` 格式的唯⼀类名，让样式只作用于当前组件，避免不同组件之间的类名冲突，导致样式污染。
 
 ```jsx
+// 以样式对象形式引入
 import styles from "./card.module.css";
 
 function Card() {
@@ -488,9 +489,34 @@ componentWillUnmount()
 
 :::
 
+父子组件嵌套时的生命周期：
+
+:::code-group
+
+```text [父组件初始挂载阶段]
+父 constructor -> 父 render ->
+子 constructor -> 子 render -> 子 componentDidMount ->
+父 componentDidMount
+```
+
+```text [父组件更新阶段]
+父 render ->
+子 render -> 子 componentDidUpdate ->
+父 componentDidUpdate
+```
+
+```text [父组件中的子组件卸载]
+父 render ->
+子 componentWillUnMount ->
+父 componentDidUpdate
+```
+
+:::
+
+
 ### shouldComponentUpdate
 
-`shouldComponentUpdate` 返回一个布尔值，来决定组件是否需要更新。如果返回 `false`，组件就不会更新。
+`shouldComponentUpdate` 在组件更新之前触发，返回一个布尔值，来决定组件是否需要更新。如果返回 `false`，组件就不会更新。
 
 `shouldComponentUpdate` 接收两个参数：`nextProps` 和 `nextState`，分别表示组件即将接收到的新属性和新状态。可以在这个钩子函数中比较组件当前的属性和状态和即将接收的新的属性和状态，返回一个布尔值，来决定是否要更新组件。
 
