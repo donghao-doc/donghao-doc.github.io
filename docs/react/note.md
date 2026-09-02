@@ -1260,3 +1260,117 @@ function App() {
 ```
 
 :::
+
+### 路由跳转
+
+常见的路由跳转方式有两种：
+
+- 标签跳转：使用 `Link`、`NavLink`。
+- 编程式导航：使用 `useNavigate`。
+
+#### 标签跳转
+
+- `Link` 用于页面之间的普通跳转。
+- `NavLink` 和 `Link` 类似，但它可以判断当前路由是否处于激活状态并添加样式，因此更适合导航菜单。
+
+:::code-group
+
+```jsx [Link]
+import { Link } from "react-router-dom";
+
+function Nav() {
+  return (
+    <nav>
+      {/* to 表示要跳转的目标路径 */}
+      <Link to="/">首页</Link>
+      <Link to="/about">关于</Link>
+    </nav>
+  );
+}
+```
+
+```jsx [NavLink]
+import { NavLink } from "react-router-dom";
+
+function Nav() {
+  return (
+    <nav>
+      <NavLink
+        to="/home"
+        className={(info) =>
+          // 可以通过 info.isActive 来判断当前路由是否激活
+          info.isActive ? "active" : ""
+        }
+      >
+        首页
+      </NavLink>
+
+      <NavLink
+        to="/about"
+        className={(info) =>
+          info.isActive ? "active" : ""
+        }
+      >
+        关于
+      </NavLink>
+    </nav>
+  );
+}
+```
+
+:::
+
+#### replace
+
+默认情况下，路由跳转会向浏览器历史堆栈中添加一条新记录。
+
+使用 `replace`，会用新页面替换当前历史记录，而不是新增一条记录。
+
+```jsx
+<Link to="/login" replace>登录</Link>
+```
+
+常见场景：
+
+```text
+登录成功
+→ 跳转首页
+→ 不希望用户点击返回再次回到登录页
+```
+
+#### 编程式导航
+
+当跳转不是用户直接点击链接触发，而是由代码逻辑决定时，可以使用 `useNavigate`。
+
+例如：登录成功后自动跳转、表单提交成功后跳转等。
+
+```jsx
+import { useNavigate } from "react-router-dom";
+
+function LoginButton() {
+  const navigate = useNavigate();
+
+  function handleLogin() {
+    // 登录成功后跳转
+    navigate("/home", {
+      replace: true, // 跳转后替换当前历史记录
+    });
+  }
+
+  return (
+    <button onClick={handleLogin}>登录</button>
+  );
+}
+```
+
+#### 返回上一页
+
+`navigate` 可以通过数字控制浏览器历史记录。
+
+```jsx
+// 返回上一页
+navigate(-1);
+
+// 前进一页
+navigate(1);
+```
