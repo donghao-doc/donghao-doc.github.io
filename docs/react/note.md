@@ -1205,3 +1205,58 @@ function App() {
 ```
 
 :::
+
+
+## React Router
+
+react-router 有以下⼏部分：
+
+- `react-router` 是浏览器和原⽣应⽤的通⽤部分。
+- `react-router-dom` ⽤于浏览器。
+- `react-router-native` ⽤于原⽣应⽤。
+
+```shell
+npm install react-router-dom
+```
+
+### 基本使用
+
+React Router 用于在 React 单页应用中根据不同 URL 渲染不同页面。
+
+使用 `createBrowserRouter` 创建路由，再通过 `RouterProvider` 将路由提供给整个应用。
+
+:::code-group
+
+```jsx [创建路由]
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
+import Home from "./Home";
+import About from "./About";
+
+// createBrowserRouter 创建路由实例
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Home />,
+  },
+  {
+    path: "/about",
+    element: <About />,
+  },
+  {
+    // 路由通配符，前面的路由都没有匹配成功，就匹配这个，所以要放在最后，常用于 404 页面
+    path: "*",
+    element: <h1>404</h1>,
+  },
+]);
+```
+
+```jsx [使用 RouterProvider]
+function App() {
+  // 将创建好的路由对象传给 RouterProvider
+  // RouterProvider 会根据浏览器当前的 URL，找到对应路由并渲染相应页面
+  return <RouterProvider router={router} />;
+}
+```
+
+:::
