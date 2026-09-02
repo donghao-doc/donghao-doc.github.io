@@ -1520,3 +1520,50 @@ function Home() {
 ```
 
 :::
+
+### 路由懒加载
+
+路由懒加载：只有用户访问某个页面时，才加载该页面对应的代码。
+
+这样可以避免应用启动时一次性加载所有页面，减少首屏需要加载的 JavaScript 体积。
+
+#### 使用 lazy 按需加载
+
+```jsx
+import { createBrowserRouter } from "react-router-dom";
+import { lazy } from "react";
+
+// 使用 lazy() 动态导入组件
+const Home = lazy(() => import("./pages/Home"));
+const About = lazy(() => import("./pages/About"));
+
+export const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Home />,
+  },
+  {
+    path: "/about",
+    element: <About />,
+  },
+]);
+```
+
+#### Suspense
+
+懒加载组件的代码需要一定时间才能下载完成，因此需要使用 `Suspense` 指定**加载期间显示的内容**。
+
+```jsx
+import { Suspense } from "react";
+import { RouterProvider } from "react-router-dom";
+import { router } from "./router";
+
+function App() {
+  return (
+    // 懒加载组件还没有加载完成时，显示 fallback 的内容
+    <Suspense fallback={<p>加载中...</p>}>
+      <RouterProvider router={router} />
+    </Suspense>
+  );
+}
+```
