@@ -1374,3 +1374,106 @@ navigate(-1);
 // 前进一页
 navigate(1);
 ```
+
+### 路由传参
+
+常见的传参方式有三种：
+
+- 查询参数：参数放在 URL 的 `?` 后面。
+- 动态路由参数：参数是 URL 路径的一部分。
+- `state`：参数不显示在 URL 中。
+
+#### 查询参数
+
+查询参数位于 URL 的 `?` 后面，如 `/search?keyword=react&page=2`。
+
+```jsx
+import { useSearchParams } from "react-router-dom";
+
+function Search() {
+  // 可以使用 useSearchParams 获取
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const keyword = searchParams.get("keyword");
+  const page = searchParams.get("page");
+
+  function handleSearch() {
+    // 也可以修改查询参数
+    setSearchParams({
+      keyword: "react",
+      page: "1",
+    });
+  }
+
+  return (
+    <p>{keyword}，第 {page} 页</p>
+  );
+}
+```
+
+#### 动态路由参数
+
+动态路由参数跟在路径中，如 `/users/1001`。
+
+路由配置：
+
+```jsx
+{
+  // :userId 表示动态参数
+  path: "/users/:userId",
+  element: <UserDetails />,
+}
+```
+
+使用 `useParams` 获取参数：
+
+```jsx
+import { useParams } from "react-router-dom";
+
+function UserDetails() {
+  const params = useParams();
+
+  return <p>用户 ID：{params.userId}</p>;
+}
+```
+
+#### state
+
+`state` 可以在路由跳转时携带复杂数据，且**不会在 URL 中显示**。
+
+:::code-group
+
+```jsx [传递 state 数据]
+import { useNavigate } from "react-router-dom";
+
+function User() {
+  const navigate = useNavigate();
+
+  function handleClick() {
+    navigate("/details", {
+      state: {
+        name: "小明",
+        age: 18,
+      },
+    });
+  }
+
+  return <button onClick={handleClick}>查看详情</button>;
+}
+```
+
+```jsx [获取 state 数据]
+import { useLocation } from "react-router-dom";
+
+function Details() {
+  const location = useLocation();
+
+  return (
+    <p>
+      {location.state.name}，{location.state.age} 岁
+    </p>
+  );
+}
+```
+
+:::
