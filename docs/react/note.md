@@ -1600,3 +1600,81 @@ const router = createBrowserRouter([
 :::tip
 优先使用 Browser Router，若无法配置服务器，或者是纯静态项目，可以使用 Hash Router。
 :::
+
+### Data API
+
+#### loader、useLoaderData
+
+在页面渲染之前，在路由层⾯上管理和预加载数据。
+
+:::code-group
+
+```jsx [loader 加载数据]
+const router = createBrowserRouter([
+  {
+    path: "/users",
+    element: <UserList />,
+    // loader 用于在进入某个路由时加载该页面需要的数据
+    async loader() {
+      const response = await fetch("/api/users");
+      const data = await response.json();
+      return data;
+    },
+  },
+]);
+```
+
+```jsx [useLoaderData 获取数据]
+import { useLoaderData } from "react-router-dom";
+
+function UserList() {
+  // 获取当前路由中的 loader 返回的数据
+  const users = useLoaderData();
+
+  return (
+    <ul>
+      {users.map((user) => (
+        <li key={user.id}>
+          {user.name}
+        </li>
+      ))}
+    </ul>
+  );
+}
+```
+
+:::
+
+#### redirect
+
+`loader` 中可以根据条件进行路由重定向。
+
+适用于登录态判断、权限判断等情况。
+
+```jsx
+import { createBrowserRouter, redirect } from "react-router-dom";
+
+async function userLoader() {
+  const user = await getUser();
+
+  // 未登录，跳转到登录页
+  if (!user) {
+    return redirect("/login");
+  }
+
+  // 已登录，返回用户数据
+  return user;
+}
+
+const router = createBrowserRouter([
+  {
+    path: "/user",
+    element: <User />,
+    loader: userLoader,
+  },
+  {
+    path: "/login",
+    element: <Login />,
+  },
+]);
+```
