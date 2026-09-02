@@ -1477,3 +1477,46 @@ function Details() {
 ```
 
 :::
+
+### 嵌套路由
+
+:::code-group
+
+```jsx [配置子路由]
+const router = createBrowserRouter([
+  {
+    path: "/home",
+    element: <Home />,
+    children: [
+      {
+        // index: true 表示父路由的默认子路由
+        // 访问 /home 时，会默认渲染 <HomeIndex />
+        index: true,
+        element: <HomeIndex />,
+      },
+      {
+        // 不用写 /home，也不用写 /，它会自动拼接父路由路径，形成 /home/profile
+        path: "profile",
+        element: <Profile />,
+      },
+    ],
+  },
+]);
+```
+
+```jsx [父组件使用 Outlet 指定子路由渲染的位置]
+import { Outlet } from "react-router-dom";
+
+function Home() {
+  return (
+    <div>
+      <h1>首页</h1>
+
+      {/* 当访问 /home/profile，此处 <Outlet /> 相当于 <Profile /> */}
+      <Outlet />
+    </div>
+  );
+}
+```
+
+:::
