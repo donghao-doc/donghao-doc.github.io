@@ -1567,3 +1567,36 @@ function App() {
   );
 }
 ```
+
+### 路由模式
+
+常见的路由模式有两种：
+
+- `createBrowserRouter`：Browser 模式，基于浏览器的 History API 实现路由。
+- `createHashRouter`：Hash 模式，基于 URL 中的 `#` 后面的 Hash 进行路由。
+
+```jsx
+import { createBrowserRouter, createHashRouter } from "react-router-dom";
+
+// const router = createHashRouter([])
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Home />,
+  },
+  {
+    path: "/about",
+    element: <About />,
+  },
+]);
+```
+
+#### 两者区别
+
+- Browser Router，部署到 Nginx 时要配置 404 重定向到 `index.html`，因为路径中的参数会被当作路径发送给服务器；Hash Router 不用配置，因为 `#` 后面的内容不会发送给服务器。
+- Hash Router 路径有 `#`，Browser Router 路径没有 `#`，更美观。
+- Hash Router 兼容性更好，但现代浏览器都能很好地支持 History API，所以 Browser Router 也能放心使用。
+
+:::tip
+优先使用 Browser Router，若无法配置服务器，或者是纯静态项目，可以使用 Hash Router。
+:::
