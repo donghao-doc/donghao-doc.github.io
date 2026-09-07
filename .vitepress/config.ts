@@ -30,6 +30,7 @@ export default defineConfig({
     sidebar: {
       '/react/': [
         { text: '笔记', link: '/react/note' },
+        { text: 'React Router', link: '/react/react-router' },
       ],
     },
 
