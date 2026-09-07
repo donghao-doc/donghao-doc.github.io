@@ -1058,6 +1058,8 @@ useImperativeHandle(ref, () => {
 
 函数组件接收 `ref` 通常需要使用 `forwardRef`，`forwardRef` ⽤于转发引⽤（refs）。
 
+将子组件的 ref 传递（暴露）给父组件。
+
 :::code-group
 
 ```jsx [App.jsx]
@@ -1083,6 +1085,8 @@ function App() {
 ```jsx [Child.jsx]
 import { forwardRef, useImperativeHandle, useRef } from "react";
 
+// 函数组件默认只接收 props 参数，不接收 ref 参数
+// 经过 forwardRef 处理的组件，可以额外接收 ref 参数
 function Child(props, ref) {
   const inputRef = useRef(null);
 
@@ -1160,7 +1164,10 @@ function Child(props) {
 - 按照约定，自定义 Hook 的名称必须以 `use` 开头，如 `useFormInput`、`useUser`。
 - 自定义 Hook 内部可以使用 `useState`、`useEffect` 等其他 Hook。
 - 自定义 Hook 本身也是 Hook，所以同样要遵守 Hook 的调用规则：只能在组件或其他 Hook 的顶层调用，不能放在条件、循环等语句中。
-- 普通函数不能调用 Hook。
+
+:::tip
+与普通函数的区别：普通函数不能调用 Hook，但自定义 Hook 可以。换句话说，如果一个普通函数里面调用了 Hook，那么它也就变成了自定义 Hook。
+:::
 
 #### 示例：封装输入框状态
 
@@ -1176,6 +1183,7 @@ function useFormInput(initialValue) {
     setValue(event.target.value);
   }
 
+  // 可以返回任意类型的数据，如对象、数组或普通的值
   return {
     value,
     onChange: handleChange,
@@ -1677,4 +1685,42 @@ const router = createBrowserRouter([
     element: <Login />,
   },
 ]);
+```
+
+## Redux
+
+Redux 是一个**全局状态管理工具**，用于集中管理多个组件都需要使用的数据。
+
+```bash
+npm install @reduxjs/toolkit react-redux
+```
+
+- `@reduxjs/toolkit`：Redux 官方推荐的开发工具集 Redux Toolkit（RTK），内部已经包含 Redux，用于简化 Redux 的开发流程。
+- `react-redux`：负责让 React 组件读取和修改 Redux 中的数据。
+
+## Redux 核心概念
+
+- `store`：数据仓库，整个应用的全局状态都保存在 `store` 中。
+- `state`：Store 中真正保存数据的地方。
+- `action`：具有 `type` 字段的普通对象，用来描述要对 `state` 做什么操作。
+- `Action Creator`：是一个函数，用于创建并返回 `action`，不用每次都⼿动编写 `action` 对象。
+- `reducer`：是⼀个函数，根据 `action` 修改 `state` 的逻辑。
+- `dispatch`：用于发送 `action`，通知 Redux 更新对应的 `state`。
+
+## 整体流程
+
+可以把 Redux 的工作流程简单记成：
+
+```text
+组件
+ ↓
+dispatch(action)
+ ↓
+reducer 处理
+ ↓
+修改 Store 中的 state
+ ↓
+组件获取新 state
+ ↓
+页面更新
 ```
