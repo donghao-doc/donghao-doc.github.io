@@ -1707,20 +1707,107 @@ npm install @reduxjs/toolkit react-redux
 - `reducer`：是⼀个函数，根据 `action` 修改 `state` 的逻辑。
 - `dispatch`：用于发送 `action`，通知 Redux 更新对应的 `state`。
 
-## 整体流程
+## Redux Toolkit 基本使用
 
-可以把 Redux 的工作流程简单记成：
+:::code-group
+
+```jsx [1. 创建 slice]
+import { createSlice } from "@reduxjs/toolkit";
+
+// slice 可以理解为 Redux 全局状态中的一个“模块”，里面放的是状态和修改状态的方法
+const counterSlice = createSlice({
+  // 当前 slice 的名称，它会参与生成 action 的 type，如 counter/increment
+  name: "counter",
+
+  // 当前 slice 的初始数据
+  initialState: {
+    value: 0,
+  },
+
+  // 修改状态的方法
+  reducers: {
+    increment(state) {
+      state.value += 1;
+    },
+
+    decrement(state) {
+      state.value -= 1;
+    },
+
+    // 如果 action 需要携带数据，可以通过 action.payload 获取
+    // 调用：dispatch(incrementByAmount(5))，此时 action.payload 就是 5
+    incrementByAmount(state, action) {
+      state.value += action.payload;
+    },
+  },
+});
+
+// createSlice 会自动根据 reducers 生成对应的 Action Creator，不需要自己手写 action
+export const { increment, decrement, incrementByAmount } = counterSlice.actions;
+
+export default counterSlice.reducer;
+```
+
+```jsx [2. 配置 store]
+import { configureStore } from "@reduxjs/toolkit";
+import counterReducer from "./counterSlice";
+
+// 使用 configureStore 创建 Store，并把各个 slice 的 reducer 注册进去
+const store = configureStore({
+  reducer: {
+    counter: counterReducer,
+  },
+});
+
+export default store;
+```
+
+```jsx [3. 使用 Provider]
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { Provider } from "react-redux";
+
+import App from "./App";
+import store from "./store";
+
+createRoot(document.getElementById("root")).render(
+  <StrictMode>
+    {/* 在应用最外层使用 Provider，把 store 提供给整个应用 */}
+    {/* 被 Provider 包裹的组件，都可以访问 Redux Store */}
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </StrictMode>
+);
+```
+
+```jsx [4. 读取/修改数据]
+import { useSelector, useDispatch } from "react-redux";
+
+// useSelector 用于读取 Store 中的数据
+// state 是整个 Store 的状态
+const count = useSelector((state) => {
+  return state.counter.value;
+});
+
+const dispatch = useDispatch();
+
+// 通过 dispatch 方法发送 action，修改 Store 中的数据
+dispatch(increment());
+```
+
+:::
+
+## 整体流程
 
 ```text
 组件
  ↓
 dispatch(action)
  ↓
-reducer 处理
+slice 中的 reducer 处理
  ↓
 修改 Store 中的 state
  ↓
-组件获取新 state
- ↓
-页面更新
+组件获取新 state 并并重新渲染
 ```
