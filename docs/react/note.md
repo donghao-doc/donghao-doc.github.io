@@ -1811,3 +1811,120 @@ slice 中的 reducer 处理
  ↓
 组件获取新 state 并并重新渲染
 ```
+## 异步逻辑与数据请求
+
+Redux 的 `reducer` 是**同步更新 state**，如果要异步更新 `state`，可以使用 `redux-thunk` middleware。
+
+但 Redux Toolkit 默认集成了 `redux-thunk`，所以不需要额外安装。
+
+- 同步的 action 是⼀个对象：`{ type: "", payload: "" }`。
+- 异步的 action 是⼀个函数（thunk 函数），thunk 函数默认接收 `dispatch` 当参数。
+
+:::code-group
+
+```jsx [1. 创建 Slice]
+import { createSlice } from "@reduxjs/toolkit";
+
+const userSlice = createSlice({
+  name: "user",
+
+  initialState: {
+    users: [],
+  },
+
+  reducers: {
+    setUsers(state, action) {
+      state.users = action.payload;
+    },
+  },
+});
+
+// 这里的 setUsers 是普通同步 action
+export const { setUsers } = userSlice.actions;
+
+export default userSlice.reducer;
+```
+
+```jsx [2. 创建 Thunk]
+import { setUsers } from "./userSlice";
+
+// 创建 Thunk 函数（异步 action）
+export function getUsers() {
+  return async function (dispatch) {
+    const response = await fetch("/api/users");
+    const data = await response.json();
+
+    // 通过 dispatch 派发同步 action
+    dispatch(setUsers(data));
+  };
+}
+```
+
+```jsx [3. 组件中调用]
+import { useDispatch, useSelector } from "react-redux";
+import { getUsers } from "./getUsers";
+
+function UserList() {
+  const users = useSelector((state) => state.user.users);
+  const dispatch = useDispatch();
+
+  function handleLoad() {
+    // 派发的不是同步 action，而是一个 Thunk 函数
+    dispatch(getUsers());
+  }
+
+  return (
+    <div>
+      <button onClick={handleLoad}>加载用户</button>
+
+      {users.map((user) => (
+        <p key={user.id}>{user.name}</p>
+      ))}
+    </div>
+  );
+}
+```
+
+:::
+
+:::tip
+执行流程：
+
+```text
+组件
+ ↓
+dispatch(thunk)
+ ↓
+执行异步请求
+ ↓
+请求完成
+ ↓
+dispatch(action)
+ ↓
+reducer 更新 state
+ ↓
+组件获取新数据并重新渲染
+```
+:::
+
+### Thunk 的参数
+
+Thunk 函数最常用的两个参数是：
+
+- `dispatch`：派发 action。
+- `getState`：获取当前 Redux Store 中的 state。
+
+```jsx
+export function getUsers() {
+  return async function (dispatch, getState) {
+    const state = getState();
+
+    console.log(state.user);
+
+    const response = await fetch("/api/users");
+    const data = await response.json();
+
+    dispatch(setUsers(data));
+  };
+}
+```
