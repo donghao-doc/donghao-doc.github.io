@@ -21,6 +21,7 @@ export default defineConfig({
     sidebar: {
       '/mini-program/': [
         { text: '小程序基础', link: '/mini-program/basic' },
+        { text: '小程序配置', link: '/mini-program/config' },
       ],
     },
 
