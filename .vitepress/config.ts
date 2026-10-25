@@ -22,6 +22,7 @@ export default defineConfig({
       '/mini-program/': [
         { text: '小程序基础', link: '/mini-program/basic' },
         { text: '小程序配置', link: '/mini-program/config' },
+        { text: '样式和组件', link: '/mini-program/style-component' },
       ],
     },
 
