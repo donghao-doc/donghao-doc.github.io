@@ -13,7 +13,7 @@ export default defineConfig({
       {
         text: '前端',
         items: [
-          { text: '微信小程序', link: '/mini-program/basic' },
+          { text: '微信小程序', link: '/mini-program/basic', activeMatch: '/mini-program/' },
         ]
       },
     ],
@@ -24,6 +24,7 @@ export default defineConfig({
         { text: '小程序配置', link: '/mini-program/config' },
         { text: '样式和组件', link: '/mini-program/style-component' },
         { text: '事件系统', link: '/mini-program/event' },
+        { text: 'WXML 语法', link: '/mini-program/wxml' },
       ],
     },
 
