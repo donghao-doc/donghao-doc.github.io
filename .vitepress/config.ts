@@ -26,6 +26,7 @@ export default defineConfig({
         { text: '事件系统', link: '/mini-program/event' },
         { text: 'WXML 语法', link: '/mini-program/wxml' },
         { text: '生命周期', link: '/mini-program/lifecycle' },
+        { text: '小程序 API', link: '/mini-program/api' },
       ],
     },
 
