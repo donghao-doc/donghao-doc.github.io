@@ -27,6 +27,7 @@ export default defineConfig({
         { text: 'WXML 语法', link: '/mini-program/wxml' },
         { text: '生命周期', link: '/mini-program/lifecycle' },
         { text: '小程序 API', link: '/mini-program/api' },
+        { text: '自定义组件', link: '/mini-program/component' },
       ],
     },
 

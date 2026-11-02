@@ -33,7 +33,7 @@
 
 `window` 用于配置小程序的**状态栏、导航栏、下拉窗口**等。
 
-```json5
+```json
 {
   "window": {
     "navigationBarTitleText": "标题",           // 导航栏标题
@@ -114,7 +114,7 @@
 
 开发者工具内置了 Sass、TypeScript 编译插件，在 `project.config.json` 中配置即可，无需安装 npm 包。
 
-```json5
+```json
 {
   "setting": {
     // 开启 SCSS 和 TypeScript 编译
