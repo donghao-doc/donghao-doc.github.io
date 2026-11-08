@@ -29,6 +29,7 @@ export default defineConfig({
         { text: '小程序 API', link: '/mini-program/api' },
         { text: '自定义组件', link: '/mini-program/component' },
         { text: 'npm 支持', link: '/mini-program/npm' },
+        { text: '分包加载', link: '/mini-program/subpackage' },
       ],
     },
 
