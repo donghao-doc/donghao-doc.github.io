@@ -28,6 +28,7 @@ export default defineConfig({
         { text: '生命周期', link: '/mini-program/lifecycle' },
         { text: '小程序 API', link: '/mini-program/api' },
         { text: '自定义组件', link: '/mini-program/component' },
+        { text: 'npm 支持', link: '/mini-program/npm' },
       ],
     },
 
