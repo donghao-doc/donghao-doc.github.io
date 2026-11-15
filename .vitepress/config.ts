@@ -31,6 +31,7 @@ export default defineConfig({
         { text: 'npm 支持', link: '/mini-program/npm' },
         { text: '分包加载', link: '/mini-program/subpackage' },
         { text: '开放能力', link: '/mini-program/open-ability' },
+        { text: '数据共享与通信', link: '/mini-program/communication' },
       ],
     },
 
