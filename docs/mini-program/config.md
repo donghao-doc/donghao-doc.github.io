@@ -152,3 +152,27 @@
 ```
 
 以上规则表示，允许首页被索引，其他页面都禁止索引。
+
+## 自定义导航栏
+
+将 `navigationStyle` 设置为 `custom`，移除默认导航栏。
+
+:::code-group
+
+```json [全局配置]
+// app.json
+{
+  "window": {
+    "navigationStyle": "custom"
+  }
+}
+```
+
+```json [页面配置]
+// 页面.json
+{
+  "navigationStyle": "custom"
+}
+```
+
+:::
