@@ -32,6 +32,7 @@ export default defineConfig({
         { text: '分包加载', link: '/mini-program/subpackage' },
         { text: '开放能力', link: '/mini-program/open-ability' },
         { text: '数据共享与通信', link: '/mini-program/communication' },
+        { text: '状态管理与计算属性', link: '/mini-program/state' },
       ],
     },
 
